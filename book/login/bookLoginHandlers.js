@@ -96,7 +96,7 @@ exports.bookRegister = function (response,request){
                         var newuser = new bookuser({
                             mail:email
                             ,ps:password
-                            ,user_id:crypto.createHash('md5').update(Date.now().toString() + email).digest(encoding || 'hex')
+                            ,user_id:crypto.createHash('md5').update(Date.now().toString() + email).digest('hex')
                             ,nickname:nickname
                         });
 
