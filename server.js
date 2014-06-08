@@ -2,21 +2,13 @@
  * Created by lishiming on 1/15/14.
  */
 var http = require("http");
-var url = require("url");
-var visitRes = require("./visitRes/visitRes");
 
 function start(route,handle){
     function onRequest(request,response){
-        var pathname = url.parse(request.url).pathname;
-        if(pathname.indexOf("/res/") != -1){
-            visitRes.visitRes(request,response);
-        }
-        else{
-            route(handle,pathname,response,request);
-        }
+       route(handle,pathname,response,request);
     }
 
-    http.createServer(onRequest).listen(10080);
+    http.createServer(onRequest).listen(9527);
     console.log("server has started");
 }
 
