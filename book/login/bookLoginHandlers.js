@@ -42,8 +42,8 @@ exports.bookLogin = function (response,request){
 
             if(ps && mail){
                 var bookuser = mongoose.model('user');
-                bookuser.find({mail:mail},function(err,buser){
-                    if(buser.length > 0)
+                bookuser.findOne({mail:mail},function(err,buser){
+                    if(buser)
                     {
                         if(ps == buser.ps){
                             responsevalue.user_id = buser.user_id;
