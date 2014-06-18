@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var querystring = require("querystring");
 var crypto = require('crypto');
-var email = require('nodemailer');
+var nodemailer = require("nodemailer");
 
 exports.bookLogin = function (response,request){
 
@@ -205,24 +205,34 @@ exports.findpassword = function(response,request){
 }
 
 function sendmail(stremail){
-    email.send(
-        {
-            ssl: true,
-            host : "smtp.qq.com",//发送 smtp.qq.com，接收 pop.qq.com
-            domain : "[182.92.80.203]",//可以在浏览器中输入 http://ip.qq.com/ 得到
-            to : stremail,
-            from : "85150091@qq.com",
-            subject : "node_mailer test email",
-            body: "Hello! This is a test of the node_mailer.",
-            authentication : "login",
-            username : "85150091",
-            password : "1234qaz",
-            debug: true
-        },
-        function(err, result){
-            if(err){ console.log("the err: ",err); }
+    var smtpTransport = nodemailer.createTransport("SMTP",{
+        service: "qq",
+        auth: {
+            user: "85150091@qq.com",
+            pass: "1234qaz"
         }
-    );
+    });
+
+// setup e-mail data with unicode symbols
+    var mailOptions = {
+        from: "Fred Foo ✔ <foo@blurdybloop.com>", // sender address
+        to: '"'+stremail+'"', // list of receivers
+        subject: "Hello", // Subject line
+        text: "Hello world", // plaintext body
+        html: "<b>Hello world ✔</b>" // html body
+    }
+
+// send mail with defined transport object
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+        }else{
+            console.log("Message sent: " + response.message);
+        }
+
+        // if you don't want to use this transport object anymore, uncomment following line
+        //smtpTransport.close(); // shut down the connection pool, no more messages
+    });
 
 }
 
