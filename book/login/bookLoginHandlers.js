@@ -207,10 +207,10 @@ exports.findpassword = function(response,request){
 function sendmail(stremail){
     mail.SMTP = {
         host: 'smtp.qq.com',
-        port: 25,
-        use_authentication: false,
-        user: '',
-        pass: ''
+        port: 465,
+        use_authentication: true,
+        user: '85150091@qq.com',
+        pass: '1234qaz'
     };
 
     mail.send_mail(
