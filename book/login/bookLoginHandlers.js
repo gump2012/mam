@@ -108,6 +108,9 @@ exports.bookRegister = function (response,request){
                             }
                         });
                     }
+                    else{
+                        console.log('用户已经存在');
+                    }
 
                     var postData = JSON.stringify(responsevalue);
                     response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
@@ -119,6 +122,7 @@ exports.bookRegister = function (response,request){
                 responsevalue = {
                     info:-1
                 };
+                console.log('参数不全');
                 var postData = JSON.stringify(responsevalue);
                 response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                 response.write(postData);
@@ -129,6 +133,7 @@ exports.bookRegister = function (response,request){
             responsevalue = {
                 info:-1
             };
+            console.log('没有数据');
             var postData = JSON.stringify(responsevalue);
             response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
             response.write(postData);
