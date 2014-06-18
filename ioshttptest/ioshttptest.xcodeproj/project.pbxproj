@@ -13,6 +13,7 @@
 		357185E0195167BD005BE489 /* BaseHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185DF195167BD005BE489 /* BaseHttpRequest.m */; };
 		357185E319517244005BE489 /* regist.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E219517244005BE489 /* regist.m */; };
 		357185E6195182BC005BE489 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E5195182BC005BE489 /* login.m */; };
+		357185E91951916F005BE489 /* findpassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E81951916F005BE489 /* findpassword.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,8 @@
 		357185E219517244005BE489 /* regist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = regist.m; sourceTree = "<group>"; };
 		357185E4195182BC005BE489 /* login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = login.h; sourceTree = "<group>"; };
 		357185E5195182BC005BE489 /* login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = login.m; sourceTree = "<group>"; };
+		357185E71951916F005BE489 /* findpassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = findpassword.h; sourceTree = "<group>"; };
+		357185E81951916F005BE489 /* findpassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = findpassword.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +94,8 @@
 				357185E219517244005BE489 /* regist.m */,
 				357185E4195182BC005BE489 /* login.h */,
 				357185E5195182BC005BE489 /* login.m */,
+				357185E71951916F005BE489 /* findpassword.h */,
+				357185E81951916F005BE489 /* findpassword.m */,
 			);
 			path = ioshttptest;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				357185E319517244005BE489 /* regist.m in Sources */,
 				357185E0195167BD005BE489 /* BaseHttpRequest.m in Sources */,
 				357185D119516704005BE489 /* main.m in Sources */,
+				357185E91951916F005BE489 /* findpassword.m in Sources */,
 				357185E6195182BC005BE489 /* login.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

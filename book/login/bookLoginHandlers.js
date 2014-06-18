@@ -5,6 +5,7 @@
 var mongoose = require('mongoose');
 var querystring = require("querystring");
 var crypto = require('crypto');
+var mail = require('nodemailer');
 
 exports.bookLogin = function (response,request){
 
@@ -171,6 +172,8 @@ exports.findpassword = function(response,request){
                     if(buser)
                     {
                         responsevalue.info = 1;
+
+                        sendmail(email);
                     }
 
                     var postData = JSON.stringify(responsevalue);
@@ -199,5 +202,32 @@ exports.findpassword = function(response,request){
             response.end();
         }
     });
+}
+
+function sendmail(stremail){
+    nodemailer.SMTP = {
+        host: 'smtp.qq.com',
+        port: 25,
+        use_authentication: false,
+        user: '',
+        pass: ''
+    };
+
+    mail.send_mail(
+        {
+            sender:'85150091@qq.com', //发送邮件的地址
+            to:stremail, //发给谁
+            subject:'测试', //主题
+            body:'发送邮件成功', //发送的内容
+            html:'<p>hello</p>' //如果要发送html
+        },
+        function(error,success){
+            if(!error){
+                console.log('message success');
+            }else{
+                console.log('failed'+error);
+            }
+        });
+
 }
 

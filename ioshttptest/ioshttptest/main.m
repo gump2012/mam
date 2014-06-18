@@ -7,11 +7,12 @@
 //
 #import "regist.h"
 #import "login.h"
+#import "findpassword.h"
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
-        BaseHttpRequest *testres = [[login alloc] init];
+        BaseHttpRequest *testres = [[findpassword alloc] init];
         [testres request];
     }
     return 0;
