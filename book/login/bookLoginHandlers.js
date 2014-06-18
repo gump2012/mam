@@ -205,7 +205,7 @@ exports.findpassword = function(response,request){
 }
 
 function sendmail(stremail){
-    nodemailer.SMTP = {
+    mail.SMTP = {
         host: 'smtp.qq.com',
         port: 25,
         use_authentication: false,
