@@ -164,11 +164,11 @@ exports.findpassword = function(response,request){
             var email = querystring.parse(requestData).email;
             if(email){
                 var bookuser = mongoose.model('user');
-                bookuser.find({mail:email},function(err,buser){
+                bookuser.findOne({mail:email},function(err,buser){
                     responsevalue = {
                         info:-1
                     };
-                    if(buser.length > 0)
+                    if(buser)
                     {
                         responsevalue.info = 1;
                     }
