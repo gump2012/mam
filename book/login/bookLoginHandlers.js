@@ -215,7 +215,7 @@ function sendmail(stremail){
 
 // setup e-mail data with unicode symbols
     var mailOptions = {
-        from: "Fred Foo ✔ <foo@blurdybloop.com>", // sender address
+        from: "85150091@qq.com", // sender address
         to: '"'+stremail+'"', // list of receivers
         subject: "Hello", // Subject line
         text: "Hello world", // plaintext body
