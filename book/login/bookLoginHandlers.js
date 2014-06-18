@@ -219,7 +219,7 @@ function sendmail(stremail){
         to: '"'+stremail+'"', // list of receivers
         subject: "找回密码", // Subject line
         text: "修改密码请找海宁qq973397822", // plaintext body
-        html: "<b>Hello world ✔</b>" // html body
+        html: "<b>修改密码请找海宁qq973397822</b>" // html body
     }
     smtpTransport.sendMail(mailOptions, function(error, response){
         if(error){
