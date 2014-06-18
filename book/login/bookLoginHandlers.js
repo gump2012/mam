@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var querystring = require("querystring");
 var crypto = require('crypto');
-var mail = require('nodemailer');
+var email = require('nodemailer');
 
 exports.bookLogin = function (response,request){
 
@@ -205,29 +205,24 @@ exports.findpassword = function(response,request){
 }
 
 function sendmail(stremail){
-    mail.SMTP = {
-        host: 'smtp.qq.com',
-        port: 465,
-        use_authentication: true,
-        user: '85150091@qq.com',
-        pass: '1234qaz'
-    };
-
-    mail.send_mail(
+    email.send(
         {
-            sender:'85150091@qq.com', //发送邮件的地址
-            to:stremail, //发给谁
-            subject:'测试', //主题
-            body:'发送邮件成功', //发送的内容
-            html:'<p>hello</p>' //如果要发送html
+            ssl: true,
+            host : "smtp.qq.com",//发送 smtp.qq.com，接收 pop.qq.com
+            domain : "[182.92.80.203]",//可以在浏览器中输入 http://ip.qq.com/ 得到
+            to : stremail,
+            from : "85150091@qq.com",
+            subject : "node_mailer test email",
+            body: "Hello! This is a test of the node_mailer.",
+            authentication : "login",
+            username : "85150091",
+            password : "1234qaz",
+            debug: true
         },
-        function(error,success){
-            if(!error){
-                console.log('message success');
-            }else{
-                console.log('failed'+error);
-            }
-        });
+        function(err, result){
+            if(err){ console.log("the err: ",err); }
+        }
+    );
 
 }
 
