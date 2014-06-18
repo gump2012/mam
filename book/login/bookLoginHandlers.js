@@ -15,24 +15,24 @@ exports.bookLogin = function (response,request){
 
     request.addListener('end', function() {
 
-        responsevalue = {
-            "user_id":"-1"
-            ,"data":{
-                "nick_name":"xxx"
-                ,"sex":"男"
-                ,"age":"32"
-                ,"grade":"12"
-                ,"notice":"xxxxxxxxxxxxxx"
-                ,"address":"xxxxxx"
-                ,"shop_name":"xxxxx"
-                ,"phone":"1251522"
-                ,"publish":"1"
-                ,"reply":"1"
-                ,"collect":"-1"
-                ,"follow":"-1"
-                ,"photo_show":"1"
-                ,"vedio_show":"-1"
-                ,"letter":"-1"
+        var responsevalue = {
+            user_id:"-1"
+            ,data:{
+                nick_name:"xxx"
+                ,sex:""
+                ,age:""
+                ,grade:""
+                ,notice:""
+                ,address:""
+                ,shop_name:""
+                ,phone:""
+                ,publish:""
+                ,reply:""
+                ,collect:""
+                ,follow:""
+                ,photo_show:""
+                ,vedio_show:""
+                ,letter:""
             }
         }
 
@@ -45,8 +45,16 @@ exports.bookLogin = function (response,request){
                 bookuser.find({mail:mail},function(err,buser){
                     if(buser.length > 0)
                     {
-                        responsevalue.user_id = buser.user_id;
-                        responsevalue.data.nick_name = buser.nickname;
+                        if(ps == buser.ps){
+                            responsevalue.user_id = buser.user_id;
+                            responsevalue.data.nick_name = buser.nickname;
+                        }else{
+                            responsevalue.user_id = '-1';
+                        }
+
+                    }
+                    else{
+                        responsevalue.user_id = '-2';
                     }
 
                     var postData = JSON.stringify(responsevalue);
@@ -56,6 +64,7 @@ exports.bookLogin = function (response,request){
                 });
             }
             else{
+                responsevalue.user_id = '-3';
                 var postData = JSON.stringify(responsevalue);
                 response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                 response.write(postData);
@@ -63,6 +72,7 @@ exports.bookLogin = function (response,request){
             }
         }
         else{
+            responsevalue.user_id = '-4';
             var postData = JSON.stringify(responsevalue);
             response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
             response.write(postData);

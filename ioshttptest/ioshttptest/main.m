@@ -6,11 +6,12 @@
 //  Copyright (c) 2014年 lishiming. All rights reserved.
 //
 #import "regist.h"
+#import "login.h"
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
-        BaseHttpRequest *testres = [[regist alloc] init];
+        BaseHttpRequest *testres = [[login alloc] init];
         [testres request];
     }
     return 0;
