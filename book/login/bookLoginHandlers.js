@@ -217,21 +217,16 @@ function sendmail(stremail){
     var mailOptions = {
         from: "85150091@qq.com", // sender address
         to: '"'+stremail+'"', // list of receivers
-        subject: "Hello", // Subject line
-        text: "Hello world", // plaintext body
+        subject: "找回密码", // Subject line
+        text: "修改密码请找海宁qq973397822", // plaintext body
         html: "<b>Hello world ✔</b>" // html body
     }
-
-// send mail with defined transport object
     smtpTransport.sendMail(mailOptions, function(error, response){
         if(error){
             console.log(error);
         }else{
             console.log("Message sent: " + response.message);
         }
-
-        // if you don't want to use this transport object anymore, uncomment following line
-        //smtpTransport.close(); // shut down the connection pool, no more messages
     });
 
 }
