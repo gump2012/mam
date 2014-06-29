@@ -180,6 +180,7 @@ exports.findpassword = function(response,request){
                     response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                     response.write(postData);
                     response.end();
+
                 });
             }
             else{
@@ -215,12 +216,12 @@ function sendmail(stremail,ps){
 
 // setup e-mail data with unicode symbols
 
-    var strtext = "您的帐户："+stremail+"\n"+
-        "您的帐户密码："+ps+"\n"+
-        "请妥善保管您的帐户和密码\n"+
-        "此邮件为系统发出，无需回复，如有其它问题请联系在线客服！\n"+
-        "QQ客服：973397822\n"+
-        "感谢您对我们的支持！\n";
+    var strtext = "您的帐户："+stremail+"<br />"+
+        "您的帐户密码："+ps+"<br />"+
+        "请妥善保管您的帐户和密码<br />"+
+        "此邮件为系统发出，无需回复，如有其它问题请联系在线客服！<br />"+
+        "QQ客服：973397822<br />"+
+        "感谢您对我们的支持！<br />";
 
     var mailOptions = {
         from: "85150091@qq.com", // sender address
