@@ -173,7 +173,7 @@ exports.findpassword = function(response,request){
                     {
                         responsevalue.info = 1;
 
-                        sendmail(email);
+                        sendmail(email,buser.ps);
                     }
 
                     var postData = JSON.stringify(responsevalue);
@@ -204,7 +204,7 @@ exports.findpassword = function(response,request){
     });
 }
 
-function sendmail(stremail){
+function sendmail(stremail,ps){
     var smtpTransport = nodemailer.createTransport("SMTP",{
         service: "qq",
         auth: {
@@ -214,12 +214,20 @@ function sendmail(stremail){
     });
 
 // setup e-mail data with unicode symbols
+
+    var strtext = "您的帐户："+stremail+"\n"+
+        "您的帐户密码："+ps+"\n"+
+        "请妥善保管您的帐户和密码\n"+
+        "此邮件为系统发出，无需回复，如有其它问题请联系在线客服！\n"+
+        "QQ客服：973397822\n"+
+        "感谢您对我们的支持！\n";
+
     var mailOptions = {
         from: "85150091@qq.com", // sender address
         to: '"'+stremail+'"', // list of receivers
         subject: "找回密码", // Subject line
-        text: "修改密码请找海宁qq973397822", // plaintext body
-        html: "<b>修改密码请找海宁qq973397822</b>" // html body
+        text: strtext, // plaintext body
+        html: "<b>"+strtext+"</b>" // html body
     }
     smtpTransport.sendMail(mailOptions, function(error, response){
         if(error){
