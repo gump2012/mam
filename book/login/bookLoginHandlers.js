@@ -20,20 +20,20 @@ exports.bookLogin = function (response,request){
             user_id:"-1"
             ,data:{
                 nick_name:"xxx"
-                ,sex:""
-                ,age:""
-                ,grade:""
+                ,sex:"男"
+                ,age:"32"
+                ,grade:"1"
                 ,notice:""
                 ,address:""
                 ,shop_name:""
                 ,phone:""
-                ,publish:""
-                ,reply:""
-                ,collect:""
-                ,follow:""
-                ,photo_show:""
-                ,vedio_show:""
-                ,letter:""
+                ,publish:[]
+                ,reply:[]
+                ,collect:[]
+                ,follow:[]
+                ,photo_show:[]
+                ,vedio_show:[]
+                ,letter:[]
             }
         }
 
