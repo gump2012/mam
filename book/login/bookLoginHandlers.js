@@ -19,7 +19,10 @@ exports.bookLogin = function (response,request){
         var responsevalue = {
             user_id:"-1"
             ,data:{
-                nick_name:"xxx"
+                head:"http://pic.yupoo.com/zhaohaining2014/DSs2NVot/oYkps.jpg"
+                ,photo_one:'http://pic.yupoo.com/zhaohaining2014/DSs2NUgP/Pzj5o.jpg'
+                ,photo_two:'http://pic.yupoo.com/zhaohaining2014/DSs2NVot/oYkps.jpg'
+                ,nick_name:"xxx"
                 ,sex:"男"
                 ,age:"32"
                 ,grade:"1"
