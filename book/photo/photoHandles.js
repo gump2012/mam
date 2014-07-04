@@ -30,13 +30,13 @@ exports.getPhotoBookList = function(response,request){
                                 ,vid:doc.infolist[i].video_image
                                 ,img:doc.infolist[i].img_small
                                 ,des:[]
-                                ,time:doc.infolist[i].time
+                                ,build_time:doc.infolist[i].time
                                 ,txt:doc.infolist[i].txt
                             }
 
                             for(j in doc.infolist[i].commentlist){
                                 var commentitem = {
-                                    time:doc.infolist[i].commentlist[j].time
+                                    des_time:doc.infolist[i].commentlist[j].time
                                     ,des_item:doc.infolist[i].commentlist[j].des
                                 }
 
@@ -69,4 +69,41 @@ exports.getPhotoBookList = function(response,request){
     });
 }
 
-exports.getOne
+exports.getOneInfo = function (response,request){
+    var requestData = '';
+    request.addListener('data', function(postDataChunk) {
+        requestData += postDataChunk;
+    });
+
+    request.addListener('end', function() {
+        if(requestData != ''){
+            var uid = querystring.parse(requestData).uid;
+            var index = querystring.parse(requestData).index;
+
+            var responsevalue = {
+                img:''
+                ,vid:''
+                ,txt:''
+            }
+
+            var infomodel = mongoose.model('info');
+            infomodel.findOne({uid:uid},'infolist',function(err,doc){
+                if(doc){
+                    for(i in doc.infolist){
+                        if(doc.infolist[i].index == index){
+                            responsevalue.img = doc.infolist[i].img_big;
+                            responsevalue.vid = doc.infolist[i].video_url;
+                            responsevalue.txt = doc.infolist[i].txt;
+
+                            break;
+                        }
+                    }
+                }
+                var postData = JSON.stringify(responsevalue);
+                response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                response.write(postData);
+                response.end();
+            });
+        }
+    });
+}
