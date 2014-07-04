@@ -94,7 +94,6 @@ exports.getOneInfo = function (response,request){
                             responsevalue.img = doc.infolist[i].img_big;
                             responsevalue.vid = doc.infolist[i].video_url;
                             responsevalue.txt = doc.infolist[i].txt;
-
                             break;
                         }
                     }
@@ -106,4 +105,16 @@ exports.getOneInfo = function (response,request){
             });
         }
     });
+}
+
+exports.modifyInfo = function(response,request){
+
+}
+
+exports.addInfo = function(response,request){
+
+}
+
+exports.deleteInfo = function(response,request){
+
 }
