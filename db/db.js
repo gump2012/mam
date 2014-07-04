@@ -26,6 +26,16 @@ function start(){
         });
 
         mongoose.model('user',userSchema);
+
+        var photoSchema = new mongoose.Schema({
+            uid:{
+                type:String
+                ,unique:true
+            }
+            ,infolist:[mongoose.Schema.Types.Mixed]
+        });
+
+        mongoose.model('info',photoSchema);
     });
 };
 
