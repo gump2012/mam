@@ -108,13 +108,43 @@ exports.getOneInfo = function (response,request){
 }
 
 exports.modifyInfo = function(response,request){
+    var requestData = '';
+    request.addListener('data', function(postDataChunk) {
+        requestData += postDataChunk;
+    });
 
+    request.addListener('end', function() {
+        if(requestData != ''){
+            var uid = querystring.parse(requestData).uid;
+            var type = querystring.parse(requestData).type;
+            var index = querystring.parse(requestData).index;
+            var txt_type = querystring.parse(requestData).txt_type;
+        }
+    });
 }
 
 exports.addInfo = function(response,request){
+    var requestData = '';
+    request.addListener('data', function(postDataChunk) {
+        requestData += postDataChunk;
+    });
 
+    request.addListener('end', function() {
+        if(requestData != ''){
+
+        }
+    });
 }
 
 exports.deleteInfo = function(response,request){
+    var requestData = '';
+    request.addListener('data', function(postDataChunk) {
+        requestData += postDataChunk;
+    });
 
+    request.addListener('end', function() {
+        if(requestData != ''){
+
+        }
+    });
 }
