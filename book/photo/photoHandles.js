@@ -119,6 +119,10 @@ exports.modifyInfo = function(response,request){
             var type = querystring.parse(requestData).type;
             var index = querystring.parse(requestData).index;
             var txt_type = querystring.parse(requestData).txt_type;
+            var txt = querystring.parse(requestData).txt;
+            var des_index = querystring.parse(requestData).des_index;
+            var des_time = querystring.parse(requestData).des_time;
+
         }
     });
 }
@@ -131,7 +135,13 @@ exports.addInfo = function(response,request){
 
     request.addListener('end', function() {
         if(requestData != ''){
-
+            var uid = querystring.parse(requestData).uid;
+            var type = querystring.parse(requestData).type;
+            var index = querystring.parse(requestData).index;
+            var txt_type = querystring.parse(requestData).txt_type;
+            var txt = querystring.parse(requestData).txt;
+            var des_index = querystring.parse(requestData).des_index;
+            var des_time = querystring.parse(requestData).des_time;
         }
     });
 }
