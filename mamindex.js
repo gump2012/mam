@@ -7,6 +7,7 @@ var requestHandlers = require("./requestHandlers");
 var db = require("./db/db.js");
 
 var bookLoginHandlers = require("./book/login/bookLoginHandlers");
+var photoHandles = require("./book/photo/photoHandles");
 
 var handle = {};
 handle["/"] = requestHandlers.start;
@@ -14,6 +15,7 @@ handle["/start"] = requestHandlers.start;
 handle["/book/login"] = bookLoginHandlers.bookLogin;
 handle["/book/register"] = bookLoginHandlers.bookRegister;
 handle["/book/findpassword"] = bookLoginHandlers.findpassword;
+handle["/info/addinfo"] = photoHandles.addInfo;
 
 db.start();
 server.start(router.route,handle);

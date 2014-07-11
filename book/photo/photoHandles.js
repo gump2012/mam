@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var querystring = require("querystring");
+var UPYun = require('../../upyun/upyun').UPYun;
 
 exports.getPhotoBookList = function(response,request){
     var requestData = '';
@@ -128,6 +129,9 @@ exports.modifyInfo = function(response,request){
 }
 
 exports.addInfo = function(response,request){
+    var upyun = new UPYun("yige2002", "yige", "qq85150091");
+    upyun.getBucketUsage(testCallback);
+
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
         requestData += postDataChunk;
@@ -146,7 +150,8 @@ exports.addInfo = function(response,request){
             var infotype = querystring.parse(requestData).info_type;
             var destime = querystring.parse(requestData).des_time;
             var txt = querystring.parse(requestData).txt;
-
+            var upyun = new UPYun("zhaohaining2014", "85150091@qq.com", "1111");
+            upyun.getBucketUsage(testCallback);
             var responsevalue = {"info":"-1"};
             if(uid){
                 var infomodel = mongoose.model('info');
@@ -218,4 +223,15 @@ exports.deleteInfo = function(response,request){
 
         }
     });
+}
+
+function testCallback(err, data) {
+    if (!err) {
+        console.log('Data: ');
+        console.log(data);
+    }
+    else {
+        console.log('Error: ');
+        console.log(err);
+    }
 }
