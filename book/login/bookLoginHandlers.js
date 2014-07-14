@@ -107,15 +107,30 @@ exports.bookRegister = function (response,request){
                     if(buser.length == 0)
                     {
                         responsevalue.info = 1;
+                        struid = crypto.createHash('md5').update(Date.now().toString() + email).digest('hex');
                         var newuser = new bookuser({
                             mail:email
                             ,ps:password
-                            ,user_id:crypto.createHash('md5').update(Date.now().toString() + email).digest('hex')
+                            ,user_id:struid
                             ,nickname:nickname
                         });
 
                         //保存实例
                         newuser.save( function( err, silence ) {
+                            if( err )
+                            {
+                                console.log(err);
+                            }
+                        });
+
+                        //保存一个info
+                        var infomodel = mongoose.model('info');
+                        var item = {
+                            uid:struid
+                            ,infolist:[]
+                        }
+                        var newinfo = new infomodel(item);
+                        newinfo.save(function(err,silence){
                             if( err )
                             {
                                 console.log(err);
