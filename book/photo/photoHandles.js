@@ -253,3 +253,8 @@ function saveNewText(item,infomodel,requestData){
         }
     });
 }
+
+function saveImage(requestData,doc,infoitem){
+    var smallimagedata = querystring.parse(requestData).img_small;
+    //var smallimagejson = JSON().prar
+}
