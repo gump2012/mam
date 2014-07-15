@@ -7,7 +7,7 @@
 //
 
 #define LOCAL_URL   @"http://127.0.0.1:10080/"
-#define MAIN_SECOND_URL @"http://182.92.80.203:9527/"
+#define MAIN_SECOND_URL @"http://114.215.129.162:9527/"
 
 @interface BaseHttpRequest : NSObject 
 

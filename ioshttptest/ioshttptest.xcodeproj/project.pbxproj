@@ -14,6 +14,7 @@
 		357185E319517244005BE489 /* regist.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E219517244005BE489 /* regist.m */; };
 		357185E6195182BC005BE489 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E5195182BC005BE489 /* login.m */; };
 		357185E91951916F005BE489 /* findpassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E81951916F005BE489 /* findpassword.m */; };
+		35A04CC319750CF000BC8322 /* addinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A04CC219750CF000BC8322 /* addinfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,8 @@
 		357185E5195182BC005BE489 /* login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = login.m; sourceTree = "<group>"; };
 		357185E71951916F005BE489 /* findpassword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = findpassword.h; sourceTree = "<group>"; };
 		357185E81951916F005BE489 /* findpassword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = findpassword.m; sourceTree = "<group>"; };
+		35A04CC119750CF000BC8322 /* addinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addinfo.h; sourceTree = "<group>"; };
+		35A04CC219750CF000BC8322 /* addinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addinfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,16 +89,12 @@
 		357185CF19516704005BE489 /* ioshttptest */ = {
 			isa = PBXGroup;
 			children = (
+				35A04CC519750D1500BC8322 /* login */,
+				35A04CC419750CFC00BC8322 /* info */,
 				357185D019516704005BE489 /* main.m */,
 				357185DE195167BD005BE489 /* BaseHttpRequest.h */,
 				357185DF195167BD005BE489 /* BaseHttpRequest.m */,
 				357185D219516704005BE489 /* Supporting Files */,
-				357185E119517244005BE489 /* regist.h */,
-				357185E219517244005BE489 /* regist.m */,
-				357185E4195182BC005BE489 /* login.h */,
-				357185E5195182BC005BE489 /* login.m */,
-				357185E71951916F005BE489 /* findpassword.h */,
-				357185E81951916F005BE489 /* findpassword.m */,
 			);
 			path = ioshttptest;
 			sourceTree = "<group>";
@@ -106,6 +105,28 @@
 				357185D319516704005BE489 /* ioshttptest-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		35A04CC419750CFC00BC8322 /* info */ = {
+			isa = PBXGroup;
+			children = (
+				35A04CC119750CF000BC8322 /* addinfo.h */,
+				35A04CC219750CF000BC8322 /* addinfo.m */,
+			);
+			name = info;
+			sourceTree = "<group>";
+		};
+		35A04CC519750D1500BC8322 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				357185E119517244005BE489 /* regist.h */,
+				357185E219517244005BE489 /* regist.m */,
+				357185E4195182BC005BE489 /* login.h */,
+				357185E5195182BC005BE489 /* login.m */,
+				357185E71951916F005BE489 /* findpassword.h */,
+				357185E81951916F005BE489 /* findpassword.m */,
+			);
+			name = login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +185,7 @@
 				357185D119516704005BE489 /* main.m in Sources */,
 				357185E91951916F005BE489 /* findpassword.m in Sources */,
 				357185E6195182BC005BE489 /* login.m in Sources */,
+				35A04CC319750CF000BC8322 /* addinfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

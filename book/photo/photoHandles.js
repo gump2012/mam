@@ -144,7 +144,7 @@ exports.addInfo = function(response,request){
             var infotype = querystring.parse(requestData).info_type;
             var txt = querystring.parse(requestData).txt;
             var responsevalue = {"info":"-1"};
-            if(uid&&type&&infotype&&txt){
+            if(uid&&type&&infotype){
                 var infomodel = mongoose.model('info');
                 var infoitem = {
                     babytype:type
@@ -159,6 +159,7 @@ exports.addInfo = function(response,request){
 
                 infomodel.findOne({uid:uid},function(err,doc){
                    if(doc){
+                       console.log('has data');
                        infoitem.index = doc.infolist.length + 1;
                        if(infoitem.info_type == "0"){
                            saveText(requestData,doc,infoitem,responsevalue,response);
@@ -166,6 +167,7 @@ exports.addInfo = function(response,request){
                        else if(infoitem.info_type == "1" || infoitem.info_type == "2"){
                            saveImage(requestData,doc,infoitem,responsevalue,response);
                        }else{
+                           console.log('infotype wrong');
                            var postData = JSON.stringify(responsevalue);
                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                            response.write(postData);
@@ -266,6 +268,7 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
 
 function saveImage(requestData,doc,infoitem,responsevalue,response){
     var smallimagedata = querystring.parse(requestData).img_small;
+    console.log('saveImage');
     if(smallimagedata){
         var smallimagejson = JSON.parse(smallimagedata);
 
@@ -282,7 +285,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                             upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
                                 if (!err) {
                                     infoitem.img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
-                                    if(infoitem.txt.length > 0){
+                                    if(infoitem.txt && infoitem.txt.length > 0){
                                         var commentitme = {
                                             des_time:infoitem.build_time
                                             ,des_text:infoitem.txt
@@ -299,7 +302,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                                         else{
                                             responsevalue.info = "1";
                                         }
-
+                                        console.log('success');
                                         var postData = JSON.stringify(responsevalue);
                                         response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                                         response.write(postData);
@@ -307,6 +310,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                                     });
                                 }
                                 else{
+                                    console.log('put big fail');
                                     var postData = JSON.stringify(responsevalue);
                                     response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                                     response.write(postData);
@@ -314,8 +318,16 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                                 }
                             });
                         }
+                        else{
+                            console.log('no big json');
+                            var postData = JSON.stringify(responsevalue);
+                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                            response.write(postData);
+                            response.end();
+                        }
                     }
                     else{
+                        console.log('no big data');
                         var postData = JSON.stringify(responsevalue);
                         response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                         response.write(postData);
@@ -323,6 +335,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                     }
                 }
                 else{
+                    console.log('put small fail');
                     var postData = JSON.stringify(responsevalue);
                     response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                     response.write(postData);
@@ -331,12 +344,14 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
             });
 
         }else{
+            console.log('no small json');
             var postData = JSON.stringify(responsevalue);
             response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
             response.write(postData);
             response.end();
         }
     }else{
+        console.log('no smallimagedata');
         var postData = JSON.stringify(responsevalue);
         response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
         response.write(postData);
@@ -362,7 +377,7 @@ function saveNewImage(item,infomodel,requestData,responsevalue,response){
                             upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
                                 if (!err) {
                                     item.infolist[0].img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
-                                    if(item.infolist[0].txt.length > 0){
+                                    if(item.infolist[0].txt && item.infolist[0].txt.length > 0){
                                         var commentitme = {
                                             des_time:item.infolist[0].build_time
                                             ,des_text:item.infolist[0].txt
