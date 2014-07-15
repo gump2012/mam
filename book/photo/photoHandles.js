@@ -129,8 +129,6 @@ exports.modifyInfo = function(response,request){
 }
 
 exports.addInfo = function(response,request){
-    var upyun = new UPYun("yige2002", "yige", "qq85150091");
-    upyun.getBucketUsage(testCallback);
 
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
