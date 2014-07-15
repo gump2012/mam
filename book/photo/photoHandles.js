@@ -269,12 +269,12 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
 function saveImage(requestData,doc,infoitem,responsevalue,response){
     var smallimagedata = querystring.parse(requestData).img_small;
     console.log('saveImage');
-    console.log(smallimagedata);
     if(smallimagedata){
         var smallimagejson = JSON.parse(smallimagedata);
 
         if(smallimagejson[0] && smallimagejson[1]){
             var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
+            console.log(smallpath);
             upyun.writeFile(smallpath, smallimagejson[1], true, function(err, data){
                 if (!err) {
                     infoitem.img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
