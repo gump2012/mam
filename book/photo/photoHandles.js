@@ -269,6 +269,7 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
 function saveImage(requestData,doc,infoitem,responsevalue,response){
     var smallimagedata = querystring.parse(requestData).img_small;
     console.log('saveImage');
+    console.log(smallimagedata);
     if(smallimagedata){
         var smallimagejson = JSON.parse(smallimagedata);
 
