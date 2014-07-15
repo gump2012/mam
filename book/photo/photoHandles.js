@@ -281,7 +281,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                         var bigimagejson = JSON.parse(smallimagedata);
                         if(bigimagejson[0] && bigimagejson[1]){
                             var bigpath = '/'+doc.uid+'/'+'big'+bigimagejson[0];
-                            upyun.writeFile(bigpath, bigimagejson[1].toDateString(), true, function(err, data){
+                            upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
                                 if (!err) {
                                     infoitem.img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
                                     if(infoitem.txt && infoitem.txt.length > 0){
