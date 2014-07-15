@@ -336,6 +336,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                 }
                 else{
                     console.log('put small fail');
+                    console.log(err);
                     var postData = JSON.stringify(responsevalue);
                     response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                     response.write(postData);
