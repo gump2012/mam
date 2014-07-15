@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var querystring = require("querystring");
 var UPYun = require('../../upyun/upyun').UPYun;
-var upyun = new UPYun("yige2002video", "yigevideo", "qq85150091");
+var upyun = new UPYun("yige2002", "yige", "qq85150091");
 exports.getPhotoBookList = function(response,request){
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
