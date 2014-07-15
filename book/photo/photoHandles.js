@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var querystring = require("querystring");
 var UPYun = require('../../upyun/upyun').UPYun;
-
+var upyun = new UPYun("yige2002video", "yigevideo", "qq85150091");
 exports.getPhotoBookList = function(response,request){
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
@@ -161,20 +161,16 @@ exports.addInfo = function(response,request){
                    if(doc){
                        infoitem.index = doc.infolist.length + 1;
                        if(infoitem.info_type == "0"){
-                           saveText(requestData,doc,infoitem);
+                           saveText(requestData,doc,infoitem,responsevalue,response);
                        }
-                       else if(infoitem.info_type == "1"){
-                           saveImage(requestData,doc,infoitem);
-                       }else if(infoitem.info_type == "2"){
-                           saveVideo();
+                       else if(infoitem.info_type == "1" || infoitem.info_type == "2"){
+                           saveImage(requestData,doc,infoitem,responsevalue,response);
                        }else{
                            var postData = JSON.stringify(responsevalue);
                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                            response.write(postData);
                            response.end();
                        }
-
-
                    }else{
                        var item = {
                            uid:uid
@@ -185,11 +181,9 @@ exports.addInfo = function(response,request){
                        item.infolist.push(infoitem);
 
                        if(infoitem.info_type == "0"){
-                           saveNewText(item,infomodel,requestData);
-                       }else if(infoitem.info_type == "1"){
-                           saveNewImage();
-                       }else if(infoitem.info_type == "2"){
-                           saveNewVideo();
+                           saveNewText(item,infomodel,requestData,responsevalue,response);
+                       }else if(infoitem.info_type == "1" || infoitem.info_type == "2"){
+                           saveNewImage(item,infomodel,requestData,responsevalue,response);
                        }else{
                            var postData = JSON.stringify(responsevalue);
                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
@@ -234,27 +228,199 @@ function testCallback(err, data) {
     }
 }
 
-function saveText(requestData,doc,infoitem){
+function saveText(requestData,doc,infoitem,responsevalue,response){
     doc.infolist.push(infoitem);
     doc.save(function(err){
         if( err )
         {
             console.log(err);
         }
+        else{
+            responsevalue.info = "1";
+        }
+
+        var postData = JSON.stringify(responsevalue);
+        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+        response.write(postData);
+        response.end();
     });
 }
 
-function saveNewText(item,infomodel,requestData){
+function saveNewText(item,infomodel,requestData,responsevalue,response){
     var newinfo = new infomodel(item);
     newinfo.save(function(err,silence){
         if( err )
         {
             console.log(err);
         }
+        else{
+            responsevalue.info = "1";
+        }
+
+        var postData = JSON.stringify(responsevalue);
+        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+        response.write(postData);
+        response.end();
     });
 }
 
-function saveImage(requestData,doc,infoitem){
+function saveImage(requestData,doc,infoitem,responsevalue,response){
     var smallimagedata = querystring.parse(requestData).img_small;
-    //var smallimagejson = JSON().prar
+    if(smallimagedata){
+        var smallimagejson = JSON.parse(smallimagedata);
+
+        if(smallimagejson[0] && smallimagejson[1]){
+            var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
+            upyun.writeFile(smallpath, smallimagejson[1], true, function(err, data){
+                if (!err) {
+                    infoitem.img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
+                    var bigimagedata = querystring.parse(requestData).img_big;
+                    if(bigimagedata){
+                        var bigimagejson = JSON.parse(smallimagedata);
+                        if(bigimagejson[0] && bigimagejson[1]){
+                            var bigpath = '/'+doc.uid+'/'+'big'+bigimagejson[0];
+                            upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
+                                if (!err) {
+                                    infoitem.img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
+                                    if(infoitem.txt.length > 0){
+                                        var commentitme = {
+                                            des_time:infoitem.build_time
+                                            ,des_text:infoitem.txt
+                                        }
+
+                                        infoitem.commentlist.push(commentitme);
+                                    }
+                                    doc.infolist.push(infoitem);
+                                    doc.save(function(err){
+                                        if( err )
+                                        {
+                                            console.log(err);
+                                        }
+                                        else{
+                                            responsevalue.info = "1";
+                                        }
+
+                                        var postData = JSON.stringify(responsevalue);
+                                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                        response.write(postData);
+                                        response.end();
+                                    });
+                                }
+                                else{
+                                    var postData = JSON.stringify(responsevalue);
+                                    response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                    response.write(postData);
+                                    response.end();
+                                }
+                            });
+                        }
+                    }
+                    else{
+                        var postData = JSON.stringify(responsevalue);
+                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                        response.write(postData);
+                        response.end();
+                    }
+                }
+                else{
+                    var postData = JSON.stringify(responsevalue);
+                    response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                    response.write(postData);
+                    response.end();
+                }
+            });
+
+        }else{
+            var postData = JSON.stringify(responsevalue);
+            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+            response.write(postData);
+            response.end();
+        }
+    }else{
+        var postData = JSON.stringify(responsevalue);
+        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+        response.write(postData);
+        response.end();
+    }
+}
+
+function saveNewImage(item,infomodel,requestData,responsevalue,response){
+    var smallimagedata = querystring.parse(requestData).img_small;
+    if(smallimagedata){
+        var smallimagejson = JSON.parse(smallimagedata);
+
+        if(smallimagejson[0] && smallimagejson[1]){
+            var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
+            upyun.writeFile(smallpath, smallimagejson[1], true, function(err, data){
+                if (!err) {
+                    item.infolist[0].img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
+                    var bigimagedata = querystring.parse(requestData).img_big;
+                    if(bigimagedata){
+                        var bigimagejson = JSON.parse(smallimagedata);
+                        if(bigimagejson[0] && bigimagejson[1]){
+                            var bigpath = '/'+doc.uid+'/'+'big'+bigimagejson[0];
+                            upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
+                                if (!err) {
+                                    item.infolist[0].img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
+                                    if(item.infolist[0].txt.length > 0){
+                                        var commentitme = {
+                                            des_time:item.infolist[0].build_time
+                                            ,des_text:item.infolist[0].txt
+                                        }
+
+                                        item.infolist[0].commentlist.push(commentitme);
+                                    }
+
+                                    var newinfo = new infomodel(item);
+                                    newinfo.save(function(err,silence){
+                                        if( err )
+                                        {
+                                            console.log(err);
+                                        }
+                                        else{
+                                            responsevalue.info = "1";
+                                        }
+
+                                        var postData = JSON.stringify(responsevalue);
+                                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                        response.write(postData);
+                                        response.end();
+                                    });
+                                }
+                                else{
+                                    var postData = JSON.stringify(responsevalue);
+                                    response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                    response.write(postData);
+                                    response.end();
+                                }
+                            });
+                        }
+                    }
+                    else{
+                        var postData = JSON.stringify(responsevalue);
+                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                        response.write(postData);
+                        response.end();
+                    }
+                }
+                else{
+                    var postData = JSON.stringify(responsevalue);
+                    response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                    response.write(postData);
+                    response.end();
+                }
+            });
+
+        }else{
+            var postData = JSON.stringify(responsevalue);
+            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+            response.write(postData);
+            response.end();
+        }
+    }else{
+        var postData = JSON.stringify(responsevalue);
+        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+        response.write(postData);
+        response.end();
+    }
 }
