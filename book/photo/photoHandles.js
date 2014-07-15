@@ -275,7 +275,6 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
         if(smallimagejson[0] && smallimagejson[1]){
             var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
             console.log(smallpath);
-            new Data
             upyun.writeFile(smallpath, smallimagejson[1], true, function(err, data){
                 if (!err) {
                     infoitem.img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
