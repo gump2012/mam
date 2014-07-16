@@ -138,6 +138,7 @@ exports.addInfo = function(response,request){
     });
 
     request.addListener('end', function() {
+        console.log(requestData);
         if(requestData != ''){
             var uid = querystring.parse(requestData).uid;
             var type = querystring.parse(requestData).type;
@@ -196,6 +197,7 @@ exports.addInfo = function(response,request){
                 });
             }
             else{
+                console.log('no data');
                 var postData = JSON.stringify(responsevalue);
                 response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                 response.write(postData);
@@ -270,17 +272,20 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
     var smallimagedata = querystring.parse(requestData).img_small;
     console.log('saveImage');
     if(smallimagedata){
-        var smallimagejson = JSON.parse(smallimagedata);
+        //var smallimagejson = JSON.parse(decodeURI(smallimagedata));
 
-        if(smallimagejson[0] && smallimagejson[1]){
-            var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
-            console.log(smallpath);
-            console.log(smallimagejson[1]);
-            console.log('16system');
-            console.log(smallimagejson[1].toString(16));
-            upyun.writeFile(smallpath, smallimagejson[1].toString(16), true, function(err, data){
+        if(true){
+            var smallpath = '/'+doc.uid+'/'+'small.jpg';
+            var img = new Buffer(smallimagedata,'base64');
+            console.log(smallimagedata.length);
+            console.log(img.length);
+            console.log(img);
+            var fs =  require('fs');
+            fs.writeFileSync('small.jpg',img);
+            upyun.writeFile(smallpath, smallimagedata, true, function(err, data){
                 if (!err) {
-                    infoitem.img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
+                    infoitem.img_samll = 'http://yige2002.b0.upaiyun.com' + smallpath;
+                    console.log(infoitem.img_samll);
                     var bigimagedata = querystring.parse(requestData).img_big;
                     if(bigimagedata){
                         var bigimagejson = JSON.parse(smallimagedata);

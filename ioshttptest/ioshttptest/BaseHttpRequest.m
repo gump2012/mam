@@ -47,6 +47,22 @@
     NSLog(@"%@",str1);
 }
 
+-(void)testPostData:(NSData *)content withURL:(NSString *)strurl
+{
+    NSURL *url = [NSURL URLWithString:strurl];
+    //第二步，创建请求
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];//设置请求方式为POST，默认为GET
+    [request setHTTPBody:content];
+    //第三步，连接服务器
+    
+    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    NSString *str1 = [[NSString alloc]initWithData:received encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"%@",str1);
+}
+
 -(void)testGet:(NSString *)strurl
 {
     NSURL *url = [NSURL URLWithString:strurl];
