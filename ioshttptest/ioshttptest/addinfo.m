@@ -194,19 +194,20 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     
     strcontent = @"&img_small=";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    NSString *imagestr = [[NSString alloc] initWithData:UIImageJPEGRepresentation(smallimage, 1.0) encoding:NSUTF16StringEncoding];
+    NSString *imagestr = [[NSString alloc] initWithData:UIImageJPEGRepresentation(smallimage, 1.0) encoding:NSUTF8StringEncoding];
     NSLog(@"%d",UIImageJPEGRepresentation(smallimage,1.0).length);
     NSLog(@"%d",imagestr.length);
-    [postdata appendData:[imagestr dataUsingEncoding:NSUTF16StringEncoding]];
+    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
+    [postdata appendData:bigdata];
 //    strcontent = @"\"]";
 //    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
 
-    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
-    strcontent = @"&img_big=[\".jpg\",\"";
-    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    [postdata appendData:bigdata];
-    strcontent = @"\"]";
-    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+//    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
+//    strcontent = @"&img_big=[\".jpg\",\"";
+//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+//    [postdata appendData:bigdata];
+//    strcontent = @"\"]";
+//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/addinfo"];
     [self testPostData:postdata withURL:strhttp];
     
