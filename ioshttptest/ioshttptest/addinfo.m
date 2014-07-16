@@ -187,99 +187,99 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return result;
 }
 -(void)request{
-//    NSMutableData *postdata = [[NSMutableData alloc] init];
-//    NSString *strcontent = @"uid=6acd6923ae5b2dbf8f3df029dd1ddf46&type=0&info_type=1&txt=我很喜欢";
-//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    NSMutableData *postdata = [[NSMutableData alloc] init];
+    NSString *strcontent = @"uid=6acd6923ae5b2dbf8f3df029dd1ddf46&type=0&info_type=1&txt=我很喜欢";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     UIImage *smallimage = [UIImage imageNamed:@"bg1.jpg"];
-//    
-//    strcontent = @"&img_small=";
-//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-//    NSString *imagestr = [[NSString alloc] initWithData:UIImageJPEGRepresentation(smallimage, 1.0) encoding:NSUTF16StringEncoding];
-//    NSLog(@"%d",UIImageJPEGRepresentation(smallimage,1.0).length);
-//    NSLog(@"%d",imagestr.length);
-//    [postdata appendData:[imagestr dataUsingEncoding:NSUTF16StringEncoding]];
-////    strcontent = @"\"]";
-////    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-//
-//    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
-//    strcontent = @"&img_big=[\".jpg\",\"";
-//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-//    [postdata appendData:bigdata];
+    
+    strcontent = @"&img_small=";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *imagestr = [[NSString alloc] initWithData:UIImageJPEGRepresentation(smallimage, 1.0) encoding:NSUTF16StringEncoding];
+    NSLog(@"%d",UIImageJPEGRepresentation(smallimage,1.0).length);
+    NSLog(@"%d",imagestr.length);
+    [postdata appendData:[imagestr dataUsingEncoding:NSUTF16StringEncoding]];
 //    strcontent = @"\"]";
 //    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-//    NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/addinfo"];
-//    [self testPostData:postdata withURL:strhttp];
+
+    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
+    strcontent = @"&img_big=[\".jpg\",\"";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    [postdata appendData:bigdata];
+    strcontent = @"\"]";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/addinfo"];
+    [self testPostData:postdata withURL:strhttp];
     
     
-    NSData *imgData = UIImageJPEGRepresentation(smallimage, 1.0);
-    
-    NSString *urlString = @"http://127.0.0.1:9527/info/addinfo";
-    
-    // create request
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setTimeoutInterval:30];
-    [request setURL:[NSURL URLWithString:urlString]];
-    
-    [request setHTTPMethod:@"POST"];
-    
-    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
-    
-    // set Content-Type in HTTP header
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    // post body
-    NSMutableData *body = [NSMutableData data];
-    
-    // add params (all params are strings)
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"uid\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"6acd6923ae5b2dbf8f3df029dd1ddf46" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"type\"\r\n\r\n"]
-                      dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"info_type\"\r\n\r\n"]
-                      dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"txt\"\r\n\r\n"]
-                      dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"我很喜欢" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    // add image data
-    if (imgData) {
-        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        // [body appendData:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"displayImage\"; filename=\"image.jpg\"\r\n"]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"img_small\"; filename=\"small.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:imgData];
-        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // setting the body of the post to the reqeust
-    [request setHTTPBody:body];
-    
-    // set URL
-    [request setURL:[NSURL URLWithString:urlString]];
-    
-    NSString *bodyStr = [[NSString alloc]initWithData:body encoding:NSUTF8StringEncoding];
-    NSLog(@" %@",bodyStr);
-    
-    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
-    NSString *str1 = [[NSString alloc]initWithData:received encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"%@",str1);
+//    NSData *imgData = UIImageJPEGRepresentation(smallimage, 1.0);
+//    
+//    NSString *urlString = @"http://127.0.0.1:9527/info/addinfo";
+//    
+//    // create request
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+//    [request setHTTPShouldHandleCookies:NO];
+//    [request setTimeoutInterval:30];
+//    [request setURL:[NSURL URLWithString:urlString]];
+//    
+//    [request setHTTPMethod:@"POST"];
+//    
+//    NSString *boundary = [NSString stringWithFormat:@"---------------------------14737809831464368775746641449"];
+//    
+//    // set Content-Type in HTTP header
+//    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+//    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+//    
+//    // post body
+//    NSMutableData *body = [NSMutableData data];
+//    
+//    // add params (all params are strings)
+//    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"uid\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[@"6acd6923ae5b2dbf8f3df029dd1ddf46" dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"type\"\r\n\r\n"]
+//                      dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"info_type\"\r\n\r\n"]
+//                      dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"txt\"\r\n\r\n"]
+//                      dataUsingEncoding:NSUTF8StringEncoding]];
+//    [body appendData:[@"我很喜欢" dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    
+//    // add image data
+//    if (imgData) {
+//        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//        // [body appendData:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"displayImage\"; filename=\"image.jpg\"\r\n"]];
+//        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"img_small\"; filename=\"small.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+//        
+//        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//        [body appendData:imgData];
+//        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+//    }
+//    
+//    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    // setting the body of the post to the reqeust
+//    [request setHTTPBody:body];
+//    
+//    // set URL
+//    [request setURL:[NSURL URLWithString:urlString]];
+//    
+//    NSString *bodyStr = [[NSString alloc]initWithData:body encoding:NSUTF8StringEncoding];
+//    NSLog(@" %@",bodyStr);
+//    
+//    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    
+//    NSString *str1 = [[NSString alloc]initWithData:received encoding:NSUTF8StringEncoding];
+//    
+//    NSLog(@"%@",str1);
 }
 @end

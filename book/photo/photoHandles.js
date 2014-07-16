@@ -139,7 +139,9 @@ exports.addInfo = function(response,request){
 
     request.addListener('end', function() {
         console.log(requestData);
+        console.log(requestData != '');
         if(requestData != ''){
+            console.log('woririri');
             var uid = querystring.parse(requestData).uid;
             var type = querystring.parse(requestData).type;
             var infotype = querystring.parse(requestData).info_type;
