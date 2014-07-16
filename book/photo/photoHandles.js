@@ -130,6 +130,8 @@ exports.modifyInfo = function(response,request){
 
 exports.addInfo = function(response,request){
 
+
+
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
         requestData += postDataChunk;
@@ -273,7 +275,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
         if(smallimagejson[0] && smallimagejson[1]){
             var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
             console.log(smallpath);
-            upyun.writeFile(smallpath, smallimagejson[1], true, function(err, data){
+            upyun.writeFile(smallpath, smallimagejson[1].toString(16), true, function(err, data){
                 if (!err) {
                     infoitem.img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
                     var bigimagedata = querystring.parse(requestData).img_big;
