@@ -194,11 +194,10 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     
     strcontent = @"&img_small=";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    NSString *imagestr = [[NSString alloc] initWithData:UIImageJPEGRepresentation(smallimage, 1.0) encoding:NSUTF8StringEncoding];
-    NSLog(@"%d",UIImageJPEGRepresentation(smallimage,1.0).length);
+    NSString *imagestr = [self base64Encode: UIImageJPEGRepresentation(smallimage, 1.0)];
+    NSLog(@"%d",[UIImageJPEGRepresentation(smallimage, 1.0) length]);
     NSLog(@"%d",imagestr.length);
-    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
-    [postdata appendData:bigdata];
+    [postdata appendData:[imagestr dataUsingEncoding:NSUTF8StringEncoding]];
 //    strcontent = @"\"]";
 //    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
 

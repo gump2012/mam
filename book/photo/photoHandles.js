@@ -138,7 +138,6 @@ exports.addInfo = function(response,request){
     });
 
     request.addListener('end', function() {
-        console.log(requestData);
         console.log(requestData != '');
         if(requestData != ''){
             console.log('woririri');
@@ -271,20 +270,24 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
 }
 
 function saveImage(requestData,doc,infoitem,responsevalue,response){
-    var smallimagedata = querystring.parse(requestData).img_small;
+    console.log(requestData.indexOf('img_small='));
+    var smallimagedata = requestData.substring(75,requestData.length);
+    var qdata = querystring.parse(requestData).img_small;
+    var base64Data = qdata.replace(/\s/g,"+");
+    console.log(smallimagedata);
+    console.log(qdata);
     console.log('saveImage');
     if(smallimagedata){
         //var smallimagejson = JSON.parse(decodeURI(smallimagedata));
 
         if(true){
             var smallpath = '/'+doc.uid+'/'+'small.jpg';
-            var img = new Buffer(smallimagedata,'base64');
+            var img = new Buffer(base64Data,'base64');
             console.log(smallimagedata.length);
+            console.log(qdata.length);
             console.log(img.length);
             console.log(img);
-            var fs =  require('fs');
-            fs.writeFileSync('small.jpg',img);
-            upyun.writeFile(smallpath, smallimagedata, true, function(err, data){
+            upyun.writeFile(smallpath, img, true, function(err, data){
                 if (!err) {
                     infoitem.img_samll = 'http://yige2002.b0.upaiyun.com' + smallpath;
                     console.log(infoitem.img_samll);
