@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "addinfo.h"
+#import "regist.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

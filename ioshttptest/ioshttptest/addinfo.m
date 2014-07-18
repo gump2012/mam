@@ -188,25 +188,24 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 }
 -(void)request{
     NSMutableData *postdata = [[NSMutableData alloc] init];
-    NSString *strcontent = @"uid=6acd6923ae5b2dbf8f3df029dd1ddf46&type=0&info_type=1&txt=我很喜欢";
+    NSString *strcontent = @"uid=b8c0b233e971576395878287d48c856e&type=0&info_type=1&txt=我很喜欢";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     UIImage *smallimage = [UIImage imageNamed:@"bg1.jpg"];
     
-    strcontent = @"&img_small=";
+    strcontent = @"&img_small=[\".jpg\",\"";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *imagestr = [self base64Encode: UIImageJPEGRepresentation(smallimage, 1.0)];
-    NSLog(@"%d",[UIImageJPEGRepresentation(smallimage, 1.0) length]);
-    NSLog(@"%d",imagestr.length);
     [postdata appendData:[imagestr dataUsingEncoding:NSUTF8StringEncoding]];
-//    strcontent = @"\"]";
-//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    strcontent = @"\"]";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
 
-//    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/set3.jpg"];
-//    strcontent = @"&img_big=[\".jpg\",\"";
-//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-//    [postdata appendData:bigdata];
-//    strcontent = @"\"]";
-//    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/gutaoworkplace/树新欢.jpg"];
+    strcontent = @"&img_big=[\".jpg\",\"";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
+    imagestr = [self base64Encode: bigdata];
+    [postdata appendData:[imagestr dataUsingEncoding:NSUTF8StringEncoding]];
+    strcontent = @"\"]";
+    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/addinfo"];
     [self testPostData:postdata withURL:strhttp];
     

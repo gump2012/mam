@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var querystring = require("querystring");
 var UPYun = require('../../upyun/upyun').UPYun;
-var upyun = new UPYun("yige2002", "yige", "qq85150091");
+var upyun = new UPYun("yige2002video", "yigevideo", "qq85150091");
 exports.getPhotoBookList = function(response,request){
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
@@ -270,35 +270,27 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
 }
 
 function saveImage(requestData,doc,infoitem,responsevalue,response){
-    console.log(requestData.indexOf('img_small='));
-    var smallimagedata = requestData.substring(75,requestData.length);
-    var qdata = querystring.parse(requestData).img_small;
-    var base64Data = qdata.replace(/\s/g,"+");
-    console.log(smallimagedata);
-    console.log(qdata);
-    console.log('saveImage');
+    var smallimagedata = querystring.parse(requestData).img_small;
     if(smallimagedata){
-        //var smallimagejson = JSON.parse(decodeURI(smallimagedata));
+        var smallimagejson = JSON.parse(decodeURI(smallimagedata));
 
-        if(true){
-            var smallpath = '/'+doc.uid+'/'+'small.jpg';
+        if(smallimagejson[0]&&smallimagejson[1]){
+            var smallpath = '/'+doc.uid+'/small'+smallimagejson[0];
+            var base64Data = smallimagejson[1].replace(/\s/g,"+");
             var img = new Buffer(base64Data,'base64');
-            console.log(smallimagedata.length);
-            console.log(qdata.length);
-            console.log(img.length);
-            console.log(img);
             upyun.writeFile(smallpath, img, true, function(err, data){
                 if (!err) {
-                    infoitem.img_samll = 'http://yige2002.b0.upaiyun.com' + smallpath;
-                    console.log(infoitem.img_samll);
+                    infoitem.img_samll = 'http://yige2002video.b0.upaiyun.com' + smallpath;
                     var bigimagedata = querystring.parse(requestData).img_big;
                     if(bigimagedata){
-                        var bigimagejson = JSON.parse(smallimagedata);
+                        var bigimagejson = JSON.parse(bigimagedata);
                         if(bigimagejson[0] && bigimagejson[1]){
                             var bigpath = '/'+doc.uid+'/'+'big'+bigimagejson[0];
-                            upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
+                            base64Data = bigimagejson[1].replace(/\s/g,"+");
+                            img = new Buffer(base64Data,'base64');
+                            upyun.writeFile(bigpath, img, true, function(err, data){
                                 if (!err) {
-                                    infoitem.img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
+                                    infoitem.img_big = 'http://yige2002video.b0.upaiyun.com' + bigpath;
                                     if(infoitem.txt && infoitem.txt.length > 0){
                                         var commentitme = {
                                             des_time:infoitem.build_time
