@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		357185CC19516704005BE489 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357185CB19516704005BE489 /* CoreData.framework */; };
-		357185CE19516704005BE489 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357185CD19516704005BE489 /* Foundation.framework */; };
-		357185D119516704005BE489 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185D019516704005BE489 /* main.m */; };
-		357185E0195167BD005BE489 /* BaseHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185DF195167BD005BE489 /* BaseHttpRequest.m */; };
-		357185E319517244005BE489 /* regist.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E219517244005BE489 /* regist.m */; };
-		357185E6195182BC005BE489 /* login.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E5195182BC005BE489 /* login.m */; };
-		357185E91951916F005BE489 /* findpassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185E81951916F005BE489 /* findpassword.m */; };
-		35A04CC319750CF000BC8322 /* addinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A04CC219750CF000BC8322 /* addinfo.m */; };
 		35A04D2C19761F3500BC8322 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357185CD19516704005BE489 /* Foundation.framework */; };
 		35A04D2D19761F3500BC8322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A04CCC197619DE00BC8322 /* CoreGraphics.framework */; };
 		35A04D2E19761F3500BC8322 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A04CCE197619DE00BC8322 /* UIKit.framework */; };
@@ -33,8 +25,8 @@
 		35A04D5819761F5A00BC8322 /* addinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A04CC219750CF000BC8322 /* addinfo.m */; };
 		35A04D5919761F5D00BC8322 /* BaseHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 357185DF195167BD005BE489 /* BaseHttpRequest.m */; };
 		35A04D5B1976621E00BC8322 /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 35A04D5A1976621E00BC8322 /* bg1.jpg */; };
-		35A04D5E197666E700BC8322 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A04D5D197666E700BC8322 /* NSData+Base64.m */; };
 		35A04D5F197666E700BC8322 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A04D5D197666E700BC8322 /* NSData+Base64.m */; };
+		35A0CB611978F55700D201D3 /* getinfolist.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A0CB601978F55700D201D3 /* getinfolist.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,20 +39,7 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		357185C619516704005BE489 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		357185C819516704005BE489 /* ioshttptest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ioshttptest; sourceTree = BUILT_PRODUCTS_DIR; };
 		357185CB19516704005BE489 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		357185CD19516704005BE489 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		357185D019516704005BE489 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,18 +72,11 @@
 		35A04D5A1976621E00BC8322 /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg1.jpg; sourceTree = "<group>"; };
 		35A04D5C197666E700BC8322 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		35A04D5D197666E700BC8322 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		35A0CB5F1978F55700D201D3 /* getinfolist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getinfolist.h; sourceTree = "<group>"; };
+		35A0CB601978F55700D201D3 /* getinfolist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getinfolist.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		357185C519516704005BE489 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				357185CC19516704005BE489 /* CoreData.framework in Frameworks */,
-				357185CE19516704005BE489 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		35A04D2819761F3500BC8322 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,7 +115,6 @@
 		357185C919516704005BE489 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				357185C819516704005BE489 /* ioshttptest */,
 				35A04D2B19761F3500BC8322 /* iostest.app */,
 				35A04D4119761F3500BC8322 /* iostestTests.xctest */,
 			);
@@ -190,6 +161,8 @@
 			children = (
 				35A04CC119750CF000BC8322 /* addinfo.h */,
 				35A04CC219750CF000BC8322 /* addinfo.m */,
+				35A0CB5F1978F55700D201D3 /* getinfolist.h */,
+				35A0CB601978F55700D201D3 /* getinfolist.m */,
 			);
 			name = info;
 			sourceTree = "<group>";
@@ -250,23 +223,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		357185C719516704005BE489 /* ioshttptest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 357185DB19516704005BE489 /* Build configuration list for PBXNativeTarget "ioshttptest" */;
-			buildPhases = (
-				357185C419516704005BE489 /* Sources */,
-				357185C519516704005BE489 /* Frameworks */,
-				357185C619516704005BE489 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ioshttptest;
-			productName = ioshttptest;
-			productReference = 357185C819516704005BE489 /* ioshttptest */;
-			productType = "com.apple.product-type.tool";
-		};
 		35A04D2A19761F3500BC8322 /* iostest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35A04D4F19761F3600BC8322 /* Build configuration list for PBXNativeTarget "iostest" */;
@@ -328,7 +284,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				357185C719516704005BE489 /* ioshttptest */,
 				35A04D2A19761F3500BC8322 /* iostest */,
 				35A04D4019761F3500BC8322 /* iostestTests */,
 			);
@@ -357,26 +312,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		357185C419516704005BE489 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				357185E319517244005BE489 /* regist.m in Sources */,
-				357185E0195167BD005BE489 /* BaseHttpRequest.m in Sources */,
-				357185D119516704005BE489 /* main.m in Sources */,
-				35A04D5E197666E700BC8322 /* NSData+Base64.m in Sources */,
-				357185E91951916F005BE489 /* findpassword.m in Sources */,
-				357185E6195182BC005BE489 /* login.m in Sources */,
-				35A04CC319750CF000BC8322 /* addinfo.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		35A04D2719761F3500BC8322 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				35A04D5519761F4800BC8322 /* regist.m in Sources */,
 				35A04D3A19761F3500BC8322 /* AppDelegate.m in Sources */,
+				35A0CB611978F55700D201D3 /* getinfolist.m in Sources */,
 				35A04D5919761F5D00BC8322 /* BaseHttpRequest.m in Sources */,
 				35A04D3619761F3500BC8322 /* main.m in Sources */,
 				35A04D5719761F5600BC8322 /* findpassword.m in Sources */,
@@ -494,26 +436,6 @@
 			};
 			name = Release;
 		};
-		357185DC19516704005BE489 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ioshttptest/ioshttptest-Prefix.pch";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		357185DD19516704005BE489 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ioshttptest/ioshttptest-Prefix.pch";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 		35A04D5019761F3600BC8322 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -610,15 +532,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		357185DB19516704005BE489 /* Build configuration list for PBXNativeTarget "ioshttptest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				357185DC19516704005BE489 /* Debug */,
-				357185DD19516704005BE489 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		35A04D4F19761F3600BC8322 /* Build configuration list for PBXNativeTarget "iostest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -626,6 +539,7 @@
 				35A04D5119761F3600BC8322 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		35A04D5219761F3600BC8322 /* Build configuration list for PBXNativeTarget "iostestTests" */ = {
 			isa = XCConfigurationList;
@@ -634,6 +548,7 @@
 				35A04D5419761F3600BC8322 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

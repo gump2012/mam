@@ -23,22 +23,31 @@ exports.getPhotoBookList = function(response,request){
             var infomodel = mongoose.model('info');
             infomodel.findOne({uid:uid},'infolist',function(err,doc){
                 if(doc){
-                    for(i in doc.infolist){
+                    for(var i = 0; i < doc.infolist.length;++i){
+
                         if(babyid == "0")
                         {
                             var item = {
                                 index:doc.infolist[i].index
-                                ,vid:doc.infolist[i].video_image
-                                ,img:doc.infolist[i].img_small
+                                ,vid:doc.infolist[i].img_samll
+                                ,img:doc.infolist[i].img_samll
+                                ,info_type:doc.infolist[i].info_type
                                 ,des:[]
-                                ,build_time:doc.infolist[i].time
-                                ,txt:doc.infolist[i].txt
+                                ,build_time:doc.infolist[i].build_time
+                                ,txt:''
+                            }
+                            if(doc.infolist[i].info_type == "0"){
+                                if(doc.infolist[i].txt.length > 50){
+                                    item.txt = doc.infolist[i].txt.substring(0,50);
+                                }else{
+                                    item.txt = doc.infolist[i].txt;
+                                }
                             }
 
                             for(j in doc.infolist[i].commentlist){
                                 var commentitem = {
-                                    des_time:doc.infolist[i].commentlist[j].time
-                                    ,des_item:doc.infolist[i].commentlist[j].des
+                                    des_time:doc.infolist[i].commentlist[j].des_time
+                                    ,des_item:doc.infolist[i].commentlist[j].des_text
                                 }
 
                                 item.des.push(commentitem);
@@ -47,16 +56,42 @@ exports.getPhotoBookList = function(response,request){
                             responsevalue.list.push(item);
                         }
                         else{
-                            if(doc.infolist[i].babyid == babyid){
+                            if(doc.infolist[i].babytype == babyid){
+                                var item = {
+                                    index:doc.infolist[i].index
+                                    ,vid:doc.infolist[i].img_small
+                                    ,img:doc.infolist[i].img_small
+                                    ,info_type:infolist[i].info_type
+                                    ,des:[]
+                                    ,build_time:doc.infolist[i].build_time
+                                    ,txt:''
+                                }
+                                if(doc.infolist[i].info_type == "0"){
+                                    if(doc.infolist[i].txt.length > 50){
+                                        item.txt = doc.infolist[i].txt.substring(0,50);
+                                    }else{
+                                        item.txt = doc.infolist[i].txt;
+                                    }
+                                }
 
+                                for(j in doc.infolist[i].commentlist){
+                                    var commentitem = {
+                                        des_time:doc.infolist[i].commentlist[j].des_time
+                                        ,des_item:doc.infolist[i].commentlist[j].des_text
+                                    }
+
+                                    item.des.push(commentitem);
+                                }
+
+                                responsevalue.list.push(item);
                             }
                         }
-
-                        var postData = JSON.stringify(responsevalue);
-                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
-                        response.write(postData);
-                        response.end();
                     }
+
+                    var postData = JSON.stringify(responsevalue);
+                    response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                    response.write(postData);
+                    response.end();
                 }
                 else{
                     var postData = JSON.stringify(responsevalue);

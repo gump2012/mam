@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "addinfo.h"
 #import "regist.h"
+#import "getinfolist.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -18,7 +19,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    BaseHttpRequest *testres = [[addinfo alloc] init];
+    BaseHttpRequest *testres = [[getinfolist alloc] init];
     [testres request];
     
     return YES;

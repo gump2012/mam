@@ -16,6 +16,6 @@ handle["/book/login"] = bookLoginHandlers.bookLogin;
 handle["/book/register"] = bookLoginHandlers.bookRegister;
 handle["/book/findpassword"] = bookLoginHandlers.findpassword;
 handle["/info/addinfo"] = photoHandles.addInfo;
-
+handle["/info/getinfolist"] = photoHandles.getPhotoBookList;
 db.start();
 server.start(router.route,handle);

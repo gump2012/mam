@@ -7,7 +7,7 @@
 //
 
 #define LOCAL_URL   @"http://127.0.0.1:9527/"
-#define MAIN_SECOND_URL @"http://114.215.129.162:9527/"
+#define MAIN_SECOND_URL @"http://latest.toupai360.com:9527/"
 
 @interface BaseHttpRequest : NSObject 
 
