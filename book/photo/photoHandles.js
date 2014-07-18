@@ -124,7 +124,7 @@ exports.getOneInfo = function (response,request){
             var infomodel = mongoose.model('info');
             infomodel.findOne({uid:uid},'infolist',function(err,doc){
                 if(doc){
-                    for(i in doc.infolist){
+                    for(var i = 0;i < doc.infolist.length;++i){
                         if(doc.infolist[i].index == Number(index)){
                             responsevalue.img = doc.infolist[i].img_big;
                             responsevalue.vid = doc.infolist[i].img_big;
@@ -179,7 +179,7 @@ exports.addInfo = function(response,request){
                 var infomodel = mongoose.model('info');
                 var infoitem = {
                     babytype:type
-                    ,index:1
+                    ,index:0
                     ,img_samll:''
                     ,img_big:''
                     ,info_type:infotype
@@ -190,7 +190,7 @@ exports.addInfo = function(response,request){
 
                 infomodel.findOne({uid:uid},function(err,doc){
                    if(doc){
-                       infoitem.index = doc.infolist.length + 1;
+                       infoitem.index = doc.infolist.length;
                        if(infoitem.info_type == "0"){
                            saveText(requestData,doc,infoitem,responsevalue,response);
                        }
@@ -209,7 +209,7 @@ exports.addInfo = function(response,request){
                            ,infolist:[]
                        }
 
-                       infoitem.index = 1;
+                       infoitem.index = 0;
                        item.infolist.push(infoitem);
 
                        if(infoitem.info_type == "0"){
