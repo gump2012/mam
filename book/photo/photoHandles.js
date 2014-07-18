@@ -100,7 +100,6 @@ exports.getPhotoBookList = function(response,request){
                     response.end();
                 }
             });
-
         }
     });
 }
@@ -126,9 +125,9 @@ exports.getOneInfo = function (response,request){
             infomodel.findOne({uid:uid},'infolist',function(err,doc){
                 if(doc){
                     for(i in doc.infolist){
-                        if(doc.infolist[i].index == index){
+                        if(doc.infolist[i].index == Number(index)){
                             responsevalue.img = doc.infolist[i].img_big;
-                            responsevalue.vid = doc.infolist[i].video_url;
+                            responsevalue.vid = doc.infolist[i].img_big;
                             responsevalue.txt = doc.infolist[i].txt;
                             break;
                         }
