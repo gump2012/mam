@@ -199,7 +199,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     strcontent = @"\"]";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
 
-    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/gutaoworkplace/树新欢.jpg"];
+    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/1.jpg"];
     strcontent = @"&img_big=[\".jpg\",\"";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     imagestr = [self base64Encode: bigdata];
