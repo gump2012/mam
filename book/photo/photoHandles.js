@@ -151,13 +151,107 @@ exports.modifyInfo = function(response,request){
     request.addListener('end', function() {
         if(requestData != ''){
             var uid = querystring.parse(requestData).uid;
-            var type = querystring.parse(requestData).type;
             var index = querystring.parse(requestData).index;
-            var txt_type = querystring.parse(requestData).txt_type;
             var txt = querystring.parse(requestData).txt;
             var des_index = querystring.parse(requestData).des_index;
-            var des_time = querystring.parse(requestData).des_time;
+            var responsevalue = {"info":"-1"};
+            if(uid&&index){
+                var infomodel = mongoose.model('info');
 
+                infomodel.findOne({uid:uid},function(err,doc){
+                    if(doc){
+                        var bfind = false;
+                        for(var i = 0; i < doc.infolist.length;++i){
+                            if(doc.infolist[i].index == Number(index)){
+                                bfind = true;
+                                if(doc.infolist[i].info_type == "0"){
+                                    if(txt){
+                                        if(txt.length == 0){
+                                            doc.infolist.remove(i);
+                                        }
+                                        else{
+                                            doc.infolist[i].txt = txt;
+                                        }
+
+                                        doc.save(function(err){
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                responsevalue.info = "1";
+                                            }
+                                            var postData = JSON.stringify(responsevalue);
+                                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                            response.write(postData);
+                                            response.end();
+                                        });
+                                    }
+                                    else{
+                                        var postData = JSON.stringify(responsevalue);
+                                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                        response.write(postData);
+                                        response.end();
+                                    }
+                                }else{
+                                    if(txt){
+                                        if(txt.length == 0){
+                                            if(des_index && des_index < doc.infolist[i].commentlist.length){
+                                                doc.infolist[i].commentlist.remove(des_index);
+                                            }
+                                        }
+                                        else{
+                                            var commentitem = {
+                                                des_time:Date.now().toString()
+                                                ,des_text:txt
+                                                ,des_index:0
+                                            }
+
+                                            if(doc.infolist[i].commentlist.length > 0){
+                                                commentitem.dex_index = doc.infolist[i].commentlist[doc.infolist[i].commentlist.length - 1].des_index + 1;
+                                            }
+                                            doc.infolist[i].commentlist.push(commentitem);
+                                        }
+
+                                        doc.save(function(err){
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                responsevalue.info = "1";
+                                            }
+                                            var postData = JSON.stringify(responsevalue);
+                                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                            response.write(postData);
+                                            response.end();
+                                        });
+                                    }
+                                    else{
+                                        var postData = JSON.stringify(responsevalue);
+                                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                        response.write(postData);
+                                        response.end();
+                                    }
+                                }
+                            }
+                        }
+                        if(!bfind){
+                            var postData = JSON.stringify(responsevalue);
+                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                            response.write(postData);
+                            response.end();
+                        }
+
+                    }else{
+                        var postData = JSON.stringify(responsevalue);
+                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                        response.write(postData);
+                        response.end();
+                    }
+                });
+            }else{
+                var postData = JSON.stringify(responsevalue);
+                response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                response.write(postData);
+                response.end();
+            }
         }
     });
 }
@@ -349,7 +443,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
         var smallimagejson = JSON.parse(decodeURI(smallimagedata));
 
         if(smallimagejson[0]&&smallimagejson[1]){
-            var smallpath = '/'+doc.uid+'/small'+smallimagejson[0];
+            var smallpath = '/'+doc.uid+'/small'+infoitem.index+smallimagejson[0];
             var base64Data = smallimagejson[1].replace(/\s/g,"+");
             var img = new Buffer(base64Data,'base64');
             upyun.writeFile(smallpath, img, true, function(err, data){
@@ -359,7 +453,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                     if(bigimagedata){
                         var bigimagejson = JSON.parse(bigimagedata);
                         if(bigimagejson[0] && bigimagejson[1]){
-                            var bigpath = '/'+doc.uid+'/'+'big'+bigimagejson[0];
+                            var bigpath = '/'+doc.uid+'/'+'big'+infoitem.index+bigimagejson[0];
                             base64Data = bigimagejson[1].replace(/\s/g,"+");
                             img = new Buffer(base64Data,'base64');
                             upyun.writeFile(bigpath, img, true, function(err, data){
@@ -369,6 +463,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
                                         var commentitme = {
                                             des_time:infoitem.build_time
                                             ,des_text:infoitem.txt
+                                            ,des_index:0
                                         }
 
                                         infoitem.commentlist.push(commentitme);
@@ -446,7 +541,7 @@ function saveNewImage(item,infomodel,requestData,responsevalue,response){
         var smallimagejson = JSON.parse(smallimagedata);
 
         if(smallimagejson[0] && smallimagejson[1]){
-            var smallpath = '/'+doc.uid+'/'+'small'+smallimagejson[0];
+            var smallpath = '/'+doc.uid+'/'+'small'+item.infolist[0].index+smallimagejson[0];
             upyun.writeFile(smallpath, smallimagejson[1], true, function(err, data){
                 if (!err) {
                     item.infolist[0].img_samll = 'http://testmycdn.b0.upaiyun.com' + smallpath;
@@ -454,7 +549,7 @@ function saveNewImage(item,infomodel,requestData,responsevalue,response){
                     if(bigimagedata){
                         var bigimagejson = JSON.parse(smallimagedata);
                         if(bigimagejson[0] && bigimagejson[1]){
-                            var bigpath = '/'+doc.uid+'/'+'big'+bigimagejson[0];
+                            var bigpath = '/'+doc.uid+'/'+'big'+item.infolist[0].index+bigimagejson[0];
                             upyun.writeFile(bigpath, bigimagejson[1], true, function(err, data){
                                 if (!err) {
                                     item.infolist[0].img_big = 'http://testmycdn.b0.upaiyun.com' + bigpath;
@@ -462,6 +557,7 @@ function saveNewImage(item,infomodel,requestData,responsevalue,response){
                                         var commentitme = {
                                             des_time:item.infolist[0].build_time
                                             ,des_text:item.infolist[0].txt
+                                            ,dex_index:0
                                         }
 
                                         item.infolist[0].commentlist.push(commentitme);
