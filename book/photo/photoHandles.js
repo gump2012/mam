@@ -129,18 +129,13 @@ exports.modifyInfo = function(response,request){
 }
 
 exports.addInfo = function(response,request){
-
-
-
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
         requestData += postDataChunk;
     });
 
     request.addListener('end', function() {
-        console.log(requestData != '');
         if(requestData != ''){
-            console.log('woririri');
             var uid = querystring.parse(requestData).uid;
             var type = querystring.parse(requestData).type;
             var infotype = querystring.parse(requestData).info_type;
@@ -161,7 +156,6 @@ exports.addInfo = function(response,request){
 
                 infomodel.findOne({uid:uid},function(err,doc){
                    if(doc){
-                       console.log('has data');
                        infoitem.index = doc.infolist.length + 1;
                        if(infoitem.info_type == "0"){
                            saveText(requestData,doc,infoitem,responsevalue,response);
