@@ -28,6 +28,7 @@
 		35A04D5F197666E700BC8322 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A04D5D197666E700BC8322 /* NSData+Base64.m */; };
 		35A0CB611978F55700D201D3 /* getinfolist.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A0CB601978F55700D201D3 /* getinfolist.m */; };
 		35A0CB641978FC2000D201D3 /* getoneinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A0CB631978FC2000D201D3 /* getoneinfo.m */; };
+		35A0CB6719790B5600D201D3 /* deleteinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A0CB6619790B5600D201D3 /* deleteinfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		35A0CB601978F55700D201D3 /* getinfolist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getinfolist.m; sourceTree = "<group>"; };
 		35A0CB621978FC2000D201D3 /* getoneinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getoneinfo.h; sourceTree = "<group>"; };
 		35A0CB631978FC2000D201D3 /* getoneinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getoneinfo.m; sourceTree = "<group>"; };
+		35A0CB6519790B5600D201D3 /* deleteinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deleteinfo.h; sourceTree = "<group>"; };
+		35A0CB6619790B5600D201D3 /* deleteinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deleteinfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +171,8 @@
 				35A0CB601978F55700D201D3 /* getinfolist.m */,
 				35A0CB621978FC2000D201D3 /* getoneinfo.h */,
 				35A0CB631978FC2000D201D3 /* getoneinfo.m */,
+				35A0CB6519790B5600D201D3 /* deleteinfo.h */,
+				35A0CB6619790B5600D201D3 /* deleteinfo.m */,
 			);
 			name = info;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				35A0CB641978FC2000D201D3 /* getoneinfo.m in Sources */,
 				35A04D5719761F5600BC8322 /* findpassword.m in Sources */,
 				35A04D5F197666E700BC8322 /* NSData+Base64.m in Sources */,
+				35A0CB6719790B5600D201D3 /* deleteinfo.m in Sources */,
 				35A04D5619761F5300BC8322 /* login.m in Sources */,
 				35A04D5819761F5A00BC8322 /* addinfo.m in Sources */,
 			);

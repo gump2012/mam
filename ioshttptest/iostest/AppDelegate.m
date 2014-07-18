@@ -11,6 +11,7 @@
 #import "regist.h"
 #import "getinfolist.h"
 #import "getoneinfo.h"
+#import "deleteinfo.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -20,7 +21,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    BaseHttpRequest *testres = [[getoneinfo alloc] init];
+    BaseHttpRequest *testres = [[deleteinfo alloc] init];
     [testres request];
     
     return YES;

@@ -190,7 +190,10 @@ exports.addInfo = function(response,request){
 
                 infomodel.findOne({uid:uid},function(err,doc){
                    if(doc){
-                       infoitem.index = doc.infolist.length;
+                       if(doc.infolist.length > 0){
+                           infoitem.index = doc.infolist[doc.infolist.length-1].index+1;
+                       }
+
                        if(infoitem.info_type == "0"){
                            saveText(requestData,doc,infoitem,responsevalue,response);
                        }
@@ -245,7 +248,50 @@ exports.deleteInfo = function(response,request){
 
     request.addListener('end', function() {
         if(requestData != ''){
+            var uid = querystring.parse(requestData).uid;
+            var index = querystring.parse(requestData).index;
+            var infomodel = mongoose.model('info');
+            var responsevalue = {"info":"-1"};
 
+            infomodel.findOne({uid:uid},'infolist',function(err,doc){
+                if(doc){
+                    var isfind = false;
+                    for(var i = 0;i < doc.infolist.length;++i){
+                        if(doc.infolist[i].index == Number(index)){
+                            isfind = true;
+                            doc.infolist.splice(i,1);
+                            doc.save(function(err){
+                                if( err )
+                                {
+                                    console.log(err);
+                                }
+                                else{
+                                    responsevalue.info = "1";
+                                }
+
+                                var postData = JSON.stringify(responsevalue);
+                                response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                response.write(postData);
+                                response.end();
+                            });
+                            break;
+                        }
+                    }
+
+                    if(!isfind){
+                        var postData = JSON.stringify(responsevalue);
+                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                        response.write(postData);
+                        response.end();
+                    }
+                }else{
+                    var postData = JSON.stringify(responsevalue);
+                    response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                    response.write(postData);
+                    response.end();
+                }
+
+            });
         }
     });
 }
