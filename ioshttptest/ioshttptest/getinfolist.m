@@ -11,7 +11,7 @@
 @implementation getinfolist
 -(void)request{
     NSString *strcontent = @"uid=b8c0b233e971576395878287d48c856e&type=0";
-    NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/getinfolist"];
+    NSString *strhttp = [NSString stringWithFormat:@"%@%@",MAIN_SECOND_URL,@"info/getinfolist"];
     [self testPost:strcontent withURL:strhttp];
 }
 @end
