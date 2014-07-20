@@ -48,6 +48,7 @@ exports.getPhotoBookList = function(response,request){
                                 var commentitem = {
                                     des_time:doc.infolist[i].commentlist[j].des_time
                                     ,des_item:doc.infolist[i].commentlist[j].des_text
+                                    ,des_index:doc.infolist[i].commentlist[j].des_index
                                 }
 
                                 item.des.push(commentitem);
@@ -78,6 +79,7 @@ exports.getPhotoBookList = function(response,request){
                                     var commentitem = {
                                         des_time:doc.infolist[i].commentlist[j].des_time
                                         ,des_item:doc.infolist[i].commentlist[j].des_text
+                                        ,des_index:doc.infolist[i].commentlist[j].des_index
                                     }
 
                                     item.des.push(commentitem);
@@ -163,6 +165,7 @@ exports.modifyInfo = function(response,request){
                         var bfind = false;
                         for(var i = 0; i < doc.infolist.length;++i){
                             if(doc.infolist[i].index == Number(index)){
+                                console.log("find it");
                                 bfind = true;
                                 if(doc.infolist[i].info_type == "0"){
                                     if(txt){
@@ -192,6 +195,7 @@ exports.modifyInfo = function(response,request){
                                         response.end();
                                     }
                                 }else{
+                                    console.log(txt);
                                     if(txt){
                                         if(txt.length == 0){
                                             if(des_index && des_index < doc.infolist[i].commentlist.length){
@@ -206,12 +210,19 @@ exports.modifyInfo = function(response,request){
                                             }
 
                                             if(doc.infolist[i].commentlist.length > 0){
-                                                commentitem.dex_index = doc.infolist[i].commentlist[doc.infolist[i].commentlist.length - 1].des_index + 1;
+                                                console.log('count '+doc.infolist[i].commentlist.length);
+                                                console.log('index'+(doc.infolist[i].commentlist[doc.infolist[i].commentlist.length - 1].des_index + 1));
+                                                commentitem.des_index = doc.infolist[i].commentlist[doc.infolist[i].commentlist.length - 1].des_index + 1;
+                                                console.log(commentitem.des_index);
                                             }
+                                            console.log(commentitem.des_index);
                                             doc.infolist[i].commentlist.push(commentitem);
+                                            console.log(doc.infolist[i].commentlist);
+                                            console.log('count '+doc.infolist[i].commentlist.length);
                                         }
 
-                                        doc.save(function(err){
+                                        doc.save(function(err,silence){
+                                            console.log('cao');
                                             if(err){
                                                 console.log(err);
                                             }else{
@@ -444,6 +455,7 @@ function saveImage(requestData,doc,infoitem,responsevalue,response){
 
         if(smallimagejson[0]&&smallimagejson[1]){
             var smallpath = '/'+doc.uid+'/small'+infoitem.index+smallimagejson[0];
+            console.log(smallimagejson[1]);
             var base64Data = smallimagejson[1].replace(/\s/g,"+");
             var img = new Buffer(base64Data,'base64');
             upyun.writeFile(smallpath, img, true, function(err, data){

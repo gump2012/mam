@@ -1,0 +1,12 @@
+{
+"name": "mam",
+"version": "0.0.1",
+"private": false,
+"scripts": {
+"start": "node mamindex.js"
+},
+"dependencies": {
+"nodemailer": "*",
+"mongoose": "*"
+}
+}

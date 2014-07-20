@@ -188,7 +188,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 }
 -(void)request{
     NSMutableData *postdata = [[NSMutableData alloc] init];
-    NSString *strcontent = @"uid=b8c0b233e971576395878287d48c856e&type=0&info_type=1&txt=我很喜欢";
+    NSString *strcontent = @"uid=1f46c397c3c1b643f5cb4bc23b1cca5f&type=0&info_type=1&txt=我很喜欢";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     UIImage *smallimage = [UIImage imageNamed:@"bg1.jpg"];
     
@@ -199,7 +199,8 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     strcontent = @"\"]";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
 
-    NSData *bigdata = [NSData dataWithContentsOfFile:@"/Users/lishiming/Desktop/1.jpg"];
+    NSData *bigdata = [NSData dataWithContentsOfFile:
+                       @"/Users/gump/Desktop/xjbres/包邮/3.jpg"];
     strcontent = @"&img_big=[\".jpg\",\"";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
     imagestr = [self base64Encode: bigdata];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3352C8BA197BDB08005737B2 /* modifyinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3352C8B9197BDB08005737B2 /* modifyinfo.m */; };
 		35A04D2C19761F3500BC8322 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357185CD19516704005BE489 /* Foundation.framework */; };
 		35A04D2D19761F3500BC8322 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A04CCC197619DE00BC8322 /* CoreGraphics.framework */; };
 		35A04D2E19761F3500BC8322 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A04CCE197619DE00BC8322 /* UIKit.framework */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3352C8B8197BDB08005737B2 /* modifyinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modifyinfo.h; sourceTree = "<group>"; };
+		3352C8B9197BDB08005737B2 /* modifyinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = modifyinfo.m; sourceTree = "<group>"; };
 		357185CB19516704005BE489 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		357185CD19516704005BE489 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		357185D019516704005BE489 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 				35A0CB631978FC2000D201D3 /* getoneinfo.m */,
 				35A0CB6519790B5600D201D3 /* deleteinfo.h */,
 				35A0CB6619790B5600D201D3 /* deleteinfo.m */,
+				3352C8B8197BDB08005737B2 /* modifyinfo.h */,
+				3352C8B9197BDB08005737B2 /* modifyinfo.m */,
 			);
 			name = info;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 				35A04D3619761F3500BC8322 /* main.m in Sources */,
 				35A0CB641978FC2000D201D3 /* getoneinfo.m in Sources */,
 				35A04D5719761F5600BC8322 /* findpassword.m in Sources */,
+				3352C8BA197BDB08005737B2 /* modifyinfo.m in Sources */,
 				35A04D5F197666E700BC8322 /* NSData+Base64.m in Sources */,
 				35A0CB6719790B5600D201D3 /* deleteinfo.m in Sources */,
 				35A04D5619761F5300BC8322 /* login.m in Sources */,
