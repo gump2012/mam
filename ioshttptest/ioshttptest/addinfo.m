@@ -207,7 +207,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     [postdata appendData:[imagestr dataUsingEncoding:NSUTF8StringEncoding]];
     strcontent = @"\"]";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/addinfo"];
+    NSString *strhttp = [NSString stringWithFormat:@"%@%@",MAIN_SECOND_URL,@"info/addinfo"];
     [self testPostData:postdata withURL:strhttp];
     
     
