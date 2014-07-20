@@ -451,6 +451,7 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
 function saveImage(requestData,doc,infoitem,responsevalue,response){
     var smallimagedata = querystring.parse(requestData).img_small;
     if(smallimagedata){
+        console.log(smallimagedata);
         var smallimagejson = JSON.parse(decodeURI(smallimagedata));
 
         if(smallimagejson[0]&&smallimagejson[1]){
