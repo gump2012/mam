@@ -174,7 +174,7 @@ exports.modifyInfo = function(response,request){
                                         else{
                                             doc.infolist[i].txt = txt;
                                         }
-
+                                        doc.markModified('infolist');
                                         doc.save(function(err){
                                             if(err){
                                                 console.log(err);
@@ -212,7 +212,6 @@ exports.modifyInfo = function(response,request){
                                             }
                                             doc.infolist[i].commentlist.push(commentitem);
                                         }
-                                        doc.infolist[0].txt = 'issave';
                                         doc.markModified('infolist');
                                         doc.save(function(err,silence){
                                             if(err){
