@@ -4,7 +4,7 @@
 
 var mongoose = require('mongoose');
 function start(){
-    var mongodb = mongoose.connect('mongodb://114.215.129.162:27017/mam');
+    var mongodb = mongoose.connect('mongodb://localhost:27017/mam');
 
     var db = mongodb.connection;
 
