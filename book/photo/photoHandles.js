@@ -273,8 +273,11 @@ exports.addInfo = function(response,request){
             var type = querystring.parse(requestData).type;
             var infotype = querystring.parse(requestData).info_type;
             var txt = querystring.parse(requestData).txt;
+            var strsmallimage = querystring.parse(requestData).img_small;
+            var strbigimage = querystring.parse(requestData).img_big;
+            var ispublish = querystring.parse(requestData).is_pulish;
             var responsevalue = {"info":"-1"};
-            if(uid&&type&&infotype){
+            if(uid&&type&&infotype&&ispublish){
                 var infomodel = mongoose.model('info');
                 var infoitem = {
                     babytype:type
@@ -284,6 +287,7 @@ exports.addInfo = function(response,request){
                     ,info_type:infotype
                     ,build_time:Date.now().toString()
                     ,txt:txt
+                    ,is_pulish:ispublish
                     ,commentlist:[]
                 };
 
@@ -297,7 +301,43 @@ exports.addInfo = function(response,request){
                            saveText(requestData,doc,infoitem,responsevalue,response);
                        }
                        else if(infoitem.info_type == "1" || infoitem.info_type == "2"){
-                           saveImage(requestData,doc,infoitem,responsevalue,response);
+                           //saveImage(requestData,doc,infoitem,responsevalue,response);
+                           if(strbigimage&&strsmallimage){
+                               infoitem.img_samll = strsmallimage;
+                               infoitem.img_big = strbigimage;
+
+                               if(infoitem.txt && infoitem.txt.length > 0){
+                                   var commentitme = {
+                                       des_time:infoitem.build_time
+                                       ,des_text:infoitem.txt
+                                       ,des_index:0
+                                   }
+
+                                   infoitem.commentlist.push(commentitme);
+                               }
+                               doc.infolist.push(infoitem);
+                               doc.save(function(err){
+                                   if( err )
+                                   {
+                                       console.log(err);
+                                   }
+                                   else{
+                                       responsevalue.info = "1";
+                                   }
+                                   console.log('success');
+                                   var postData = JSON.stringify(responsevalue);
+                                   response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                   response.write(postData);
+                                   response.end();
+                               });
+                           }
+                           else{
+                               console.log('infotype wrong');
+                               var postData = JSON.stringify(responsevalue);
+                               response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                               response.write(postData);
+                               response.end();
+                           }
                        }else{
                            console.log('infotype wrong');
                            var postData = JSON.stringify(responsevalue);
