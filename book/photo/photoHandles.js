@@ -301,7 +301,6 @@ exports.addInfo = function(response,request){
                            saveText(requestData,doc,infoitem,responsevalue,response);
                        }
                        else if(infoitem.info_type == "1" || infoitem.info_type == "2"){
-                           //saveImage(requestData,doc,infoitem,responsevalue,response);
                            if(strbigimage&&strsmallimage){
                                infoitem.img_samll = strsmallimage;
                                infoitem.img_big = strbigimage;
@@ -357,7 +356,42 @@ exports.addInfo = function(response,request){
                        if(infoitem.info_type == "0"){
                            saveNewText(item,infomodel,requestData,responsevalue,response);
                        }else if(infoitem.info_type == "1" || infoitem.info_type == "2"){
-                           saveNewImage(item,infomodel,requestData,responsevalue,response);
+                           if(strbigimage&&strsmallimage){
+                               infoitem.img_samll = strsmallimage;
+                               infoitem.img_big = strbigimage;
+
+                               if(infoitem.txt && infoitem.txt.length > 0){
+                                   var commentitme = {
+                                       des_time:infoitem.build_time
+                                       ,des_text:infoitem.txt
+                                       ,des_index:0
+                                   }
+
+                                   infoitem.commentlist.push(commentitme);
+                               }
+                               doc.infolist.push(infoitem);
+                               doc.save(function(err){
+                                   if( err )
+                                   {
+                                       console.log(err);
+                                   }
+                                   else{
+                                       responsevalue.info = "1";
+                                   }
+                                   console.log('success');
+                                   var postData = JSON.stringify(responsevalue);
+                                   response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                   response.write(postData);
+                                   response.end();
+                               });
+                           }
+                           else{
+                               console.log('infotype wrong');
+                               var postData = JSON.stringify(responsevalue);
+                               response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                               response.write(postData);
+                               response.end();
+                           }
                        }else{
                            var postData = JSON.stringify(responsevalue);
                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
