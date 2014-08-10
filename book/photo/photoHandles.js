@@ -25,7 +25,7 @@ exports.getPhotoBookList = function(response,request){
                 if(doc){
                     for(var i = 0; i < doc.infolist.length;++i){
 
-                        if(babyid == "0")
+                        if(babyid == "全部")
                         {
                             var item = {
                                 index:doc.infolist[i].index
@@ -196,8 +196,12 @@ exports.modifyInfo = function(response,request){
                                 }else{
                                     if(txt){
                                         if(txt.length == 0){
-                                            if(des_index && des_index < doc.infolist[i].commentlist.length){
-                                                doc.infolist[i].commentlist.remove(des_index);
+                                            if(des_index && Number(des_index) < doc.infolist[i].commentlist.length){
+                                                for(var j = 0; j < doc.infolist[i].commentlist.length;++j){
+                                                    if(doc.infolist[i].commentlist[j].des_index == Number(des_index)){
+                                                        doc.infolist[i].commentlist.remove(j);
+                                                    }
+                                                }
                                             }
                                         }
                                         else{
