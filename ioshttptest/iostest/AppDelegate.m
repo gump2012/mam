@@ -22,7 +22,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    BaseHttpRequest *testres = [[modifyinfo alloc] init];
+    BaseHttpRequest *testres = [[addinfo alloc] init];
     [testres request];
     
     return YES;

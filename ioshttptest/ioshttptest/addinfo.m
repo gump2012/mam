@@ -188,26 +188,13 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 }
 -(void)request{
     NSMutableData *postdata = [[NSMutableData alloc] init];
-    NSString *strcontent = @"uid=1f46c397c3c1b643f5cb4bc23b1cca5f&type=0&info_type=1&txt=我很喜欢";
+    NSString *strcontent = @"uid=0c3637849cf280058fd53d2f1b36a541&type=全部&info_type=1&txt=我很喜欢\
+&img_small=http://pic.yupoo.com/yige2002/DH6j6OLv/v056K.jpg&\
+img_big=http://pic.yupoo.com/yige2002/DH6jJQuY/vtiqy.jpg&\
+is_pulish=1";
     [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    UIImage *smallimage = [UIImage imageNamed:@"bg1.jpg"];
     
-    strcontent = @"&img_small=[\".jpg\",\"";
-    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    NSString *imagestr = [self base64Encode: UIImageJPEGRepresentation(smallimage, 1.0)];
-    [postdata appendData:[imagestr dataUsingEncoding:NSUTF8StringEncoding]];
-    strcontent = @"\"]";
-    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-
-    NSData *bigdata = [NSData dataWithContentsOfFile:
-                       @"/Users/gump/Desktop/xjbres/包邮/3.jpg"];
-    strcontent = @"&img_big=[\".jpg\",\"";
-    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    imagestr = [self base64Encode: bigdata];
-    [postdata appendData:[imagestr dataUsingEncoding:NSUTF8StringEncoding]];
-    strcontent = @"\"]";
-    [postdata appendData:[strcontent dataUsingEncoding:NSUTF8StringEncoding]];
-    NSString *strhttp = [NSString stringWithFormat:@"%@%@",MAIN_SECOND_URL,@"info/addinfo"];
+    NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"info/addinfo"];
     [self testPostData:postdata withURL:strhttp];
     
     

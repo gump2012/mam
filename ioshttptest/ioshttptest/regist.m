@@ -11,7 +11,7 @@
 @implementation regist
 -(void)request{
     NSString *strcontent = @"nickname=haining&password=haining&email=yige2002@tom.com";
-    NSString *strhttp = [NSString stringWithFormat:@"%@%@",MAIN_SECOND_URL,@"book/register"];
+    NSString *strhttp = [NSString stringWithFormat:@"%@%@",LOCAL_URL,@"book/register"];
     [self testPost:strcontent withURL:strhttp];
 }
 @end
