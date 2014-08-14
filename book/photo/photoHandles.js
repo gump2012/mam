@@ -279,7 +279,7 @@ exports.addInfo = function(response,request){
             var txt = querystring.parse(requestData).txt;
             var strsmallimage = querystring.parse(requestData).img_small;
             var strbigimage = querystring.parse(requestData).img_big;
-            var ispublish = querystring.parse(requestData).is_pulish;
+            var ispublish = querystring.parse(requestData).is_publish;
             var responsevalue = {"info":"-1"};
             if(uid&&type&&infotype&&ispublish){
                 var infomodel = mongoose.model('info');
