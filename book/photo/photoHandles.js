@@ -373,8 +373,9 @@ exports.addInfo = function(response,request){
 
                                    infoitem.commentlist.push(commentitme);
                                }
-                               doc.infolist.push(infoitem);
-                               doc.save(function(err){
+
+                               var newinfo = new infomodel(item);
+                               newinfo.save(function(err,silence){
                                    if( err )
                                    {
                                        console.log(err);
