@@ -156,7 +156,11 @@ exports.modifyInfo = function(response,request){
             var index = querystring.parse(requestData).index;
             var txt = querystring.parse(requestData).txt;
             var des_index = querystring.parse(requestData).des_index;
-            var responsevalue = {"info":"-1"};
+            var responsevalue = {"info":"-1",
+            "more":{
+                "des_time":""
+                ,"index":""
+            }};
             if(uid&&index){
                 var infomodel = mongoose.model('info');
 
@@ -214,6 +218,10 @@ exports.modifyInfo = function(response,request){
                                             if(doc.infolist[i].commentlist.length > 0){
                                                 commentitem.des_index = doc.infolist[i].commentlist[doc.infolist[i].commentlist.length - 1].des_index + 1;
                                             }
+
+                                            responsevalue.more.des_time = commentitem.des_time;
+                                            responsevalue.more.index = commentitem.des_index;
+
                                             doc.infolist[i].commentlist.push(commentitem);
                                         }
                                         doc.markModified('infolist');
