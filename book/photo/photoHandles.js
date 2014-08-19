@@ -163,17 +163,24 @@ exports.modifyInfo = function(response,request){
             }};
             if(uid&&index){
                 var infomodel = mongoose.model('info');
-
+                console.log('has uid',uid,index);
                 infomodel.findOne({uid:uid},function(err,doc){
                     if(doc){
+                        console.log('find');
+                        console.log(doc.infolist.length);
                         var bfind = false;
+                        console.log(index);
                         for(var i = 0; i < doc.infolist.length;++i){
+                            console.log(doc.infolist[i].index);
+                            console.log(doc.infolist[i].index == Number(index));
                             if(doc.infolist[i].index == Number(index)){
+                                console.log('find doc');
+                                console.log(doc.infolist[i].info_type);
                                 bfind = true;
                                 if(doc.infolist[i].info_type == "0"){
                                     if(txt){
                                         if(txt.length == 0){
-                                            doc.infolist.remove(i);
+                                            doc.infolist.splice(i,1);
                                         }
                                         else{
                                             doc.infolist[i].txt = txt;
@@ -192,18 +199,31 @@ exports.modifyInfo = function(response,request){
                                         });
                                     }
                                     else{
-                                        var postData = JSON.stringify(responsevalue);
-                                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
-                                        response.write(postData);
-                                        response.end();
+doc.infolist.splice(i,1);
+ doc.markModified('infolist');
+                                        doc.save(function(err){
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                responsevalue.info = "1";
+                                            }
+                                            var postData = JSON.stringify(responsevalue);
+                                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                            response.write(postData);
+                                            response.end();
+                                        });
+                                       
                                     }
                                 }else{
+				    console.log(txt);
                                     if(txt){
+                                        console.log('jin');
+                                        console.log(txt.length);
                                         if(txt.length == 0){
                                             if(des_index && Number(des_index) < doc.infolist[i].commentlist.length){
                                                 for(var j = 0; j < doc.infolist[i].commentlist.length;++j){
                                                     if(doc.infolist[i].commentlist[j].des_index == Number(des_index)){
-                                                        doc.infolist[i].commentlist.remove(j);
+                                                        doc.infolist[i].commentlist.splice(j,1);
                                                     }
                                                 }
                                             }
@@ -240,10 +260,29 @@ exports.modifyInfo = function(response,request){
                                         });
                                     }
                                     else{
-                                        var postData = JSON.stringify(responsevalue);
-                                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
-                                        response.write(postData);
-                                        response.end();
+if(des_index && Number(des_index) < doc.infolist[i].commentlist.length){
+                                                for(var j = 0; j < doc.infolist[i].commentlist.length;++j){
+                                                    if(doc.infolist[i].commentlist[j].des_index == Number(des_index)){
+                                                        doc.infolist[i].commentlist.splice(j,1);
+                                                    }
+                                                }
+                                            }
+ doc.markModified('infolist');
+                                        doc.save(function(err,silence){
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                console.log(doc.infolist[0].commentlist);
+                                                console.log('save');
+                                                responsevalue.info = "1";
+                                            }
+                                            var postData = JSON.stringify(responsevalue);
+                                            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                                            response.write(postData);
+                                            response.end();
+                                        });
+                                        console.log('no txt');
+                                    
                                     }
                                 }
                                 break;
@@ -264,6 +303,7 @@ exports.modifyInfo = function(response,request){
                     }
                 });
             }else{
+                console.log('no data');
                 var postData = JSON.stringify(responsevalue);
                 response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
                 response.write(postData);
