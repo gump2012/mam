@@ -351,7 +351,7 @@ doc.infolist.splice(i,1);
                                         });
                                     }
                                     else{
-if(des_index && Number(des_index) < doc.infolist[i].commentlist.length){
+if(des_index){
                                                 for(var j = 0; j < doc.infolist[i].commentlist.length;++j){
                                                     if(doc.infolist[i].commentlist[j].des_index == Number(des_index)){
                                                         doc.infolist[i].commentlist.splice(j,1);
