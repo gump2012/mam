@@ -430,6 +430,7 @@ exports.addInfo = function(response,request){
                  ,"build_time_day":"13"
                 }
             };
+            console.log(uid,type,infotype,ispublish);
             if(uid&&type&&infotype&&ispublish){
                 var infomodel = mongoose.model('info');
                 var infoitem = {
@@ -577,6 +578,13 @@ exports.addInfo = function(response,request){
                 response.end();
             }
 
+        }
+        else{
+            console.log('no post data');
+            var postData = JSON.stringify(responsevalue);
+            response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+            response.write(postData);
+            response.end();
         }
     });
 }
