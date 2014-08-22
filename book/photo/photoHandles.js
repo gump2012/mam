@@ -680,12 +680,12 @@ function saveText(requestData,doc,infoitem,responsevalue,response){
         }
         else{
             responsevalue.info = "1";
-            responsevalue.more.index = item.index;
-            responsevalue.more.info_type = item.info_type;
-            responsevalue.more.vid = item.img_big;
-            responsevalue.more.img = item.img_samll;
-            responsevalue.more.build_time = item.build_time;
-            responsevalue.more.txt = item.txt;
+            responsevalue.more.index = infoitem.index;
+            responsevalue.more.info_type = infoitem.info_type;
+            responsevalue.more.vid = infoitem.img_big;
+            responsevalue.more.img = infoitem.img_samll;
+            responsevalue.more.build_time = infoitem.build_time;
+            responsevalue.more.txt = infoitem.txt;
         }
 
         var postData = JSON.stringify(responsevalue);
@@ -704,12 +704,12 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
         }
         else{
             responsevalue.info = "1";
-            responsevalue.more.index = item.index;
-            responsevalue.more.info_type = item.info_type;
-            responsevalue.more.vid = item.img_big;
-            responsevalue.more.img = item.img_samll;
-            responsevalue.more.build_time = item.build_time;
-            responsevalue.more.txt = item.txt;
+            responsevalue.more.index = item.infolist[0].index;
+            responsevalue.more.info_type = item.infolist[0].info_type;
+            responsevalue.more.vid = item.infolist[0].img_big;
+            responsevalue.more.img = item.infolist[0].img_samll;
+            responsevalue.more.build_time = item.infolist[0].build_time;
+            responsevalue.more.txt = item.infolist[0].txt;
         }
 
         var postData = JSON.stringify(responsevalue);
