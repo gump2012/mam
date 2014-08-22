@@ -427,7 +427,7 @@ exports.addInfo = function(response,request){
                  ,"img":""
                  ,"des":[]
                  ,"build_time":"2016-4"
-                 ,"build_time_day":"13"
+                 ,"txt":"13"
                 }
             };
             console.log(uid,type,infotype,ispublish);
@@ -481,6 +481,7 @@ exports.addInfo = function(response,request){
                                responsevalue.more.vid = infoitem.img_big;
                                responsevalue.more.img = infoitem.img_samll;
                                responsevalue.more.build_time = infoitem.build_time;
+                               responsevalue.more.txt = infoitem.txt;
                                doc.infolist.push(infoitem);
                                doc.save(function(err){
                                    if( err )
@@ -551,6 +552,7 @@ exports.addInfo = function(response,request){
                                responsevalue.more.vid = infoitem.img_big;
                                responsevalue.more.img = infoitem.img_samll;
                                responsevalue.more.build_time = infoitem.build_time;
+                               responsevalue.more.txt = infoitem.txt;
                                var newinfo = new infomodel(item);
                                newinfo.save(function(err,silence){
                                    if( err )
