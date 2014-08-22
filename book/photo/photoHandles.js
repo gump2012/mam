@@ -465,7 +465,14 @@ exports.addInfo = function(response,request){
                                        ,des_text:infoitem.txt
                                        ,des_index:0
                                    }
-                                   responsevalue.more.des.push(commentitme);
+
+                                   var resitme = {
+                                       des_time:infoitem.build_time
+                                       ,des_item:infoitem.txt
+                                       ,des_index:0
+                                   }
+                                   responsevalue.more.des.push(resitme);
+
                                    infoitem.commentlist.push(commentitme);
                                }
 
@@ -530,7 +537,13 @@ exports.addInfo = function(response,request){
                                    }
 
                                    infoitem.commentlist.push(commentitme);
-                                   responsevalue.more.des.push(commentitme);
+
+                                   var resitme = {
+                                       des_time:infoitem.build_time
+                                       ,des_item:infoitem.txt
+                                       ,des_index:0
+                                   }
+                                   responsevalue.more.des.push(resitme);
                                }
 
                                responsevalue.more.index = infoitem.index;
