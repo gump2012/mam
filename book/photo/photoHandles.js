@@ -427,7 +427,7 @@ exports.addInfo = function(response,request){
                  ,"img":""
                  ,"des":[]
                  ,"build_time":"2016-4"
-                 ,"txt":"13"
+                 ,"txt":""
                 }
             };
             console.log(uid,type,infotype,ispublish);
@@ -698,6 +698,12 @@ function saveNewText(item,infomodel,requestData,responsevalue,response){
         }
         else{
             responsevalue.info = "1";
+            responsevalue.more.index = item.index;
+            responsevalue.more.info_type = item.info_type;
+            responsevalue.more.vid = item.img_big;
+            responsevalue.more.img = item.img_samll;
+            responsevalue.more.build_time = item.build_time;
+            responsevalue.more.txt = item.txt;
         }
 
         var postData = JSON.stringify(responsevalue);
