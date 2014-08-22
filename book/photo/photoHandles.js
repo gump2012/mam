@@ -15,7 +15,7 @@ exports.getPhotoBookList = function(response,request){
         if(requestData != ''){
             var uid = querystring.parse(requestData).uid;
             var babyid = querystring.parse(requestData).type;
-
+            var indexstart = querystring.parse(requestData).index_start;
             var responsevalue = {
                 list:[]
             };
@@ -23,69 +23,160 @@ exports.getPhotoBookList = function(response,request){
             var infomodel = mongoose.model('info');
             infomodel.findOne({uid:uid},'infolist',function(err,doc){
                 if(doc){
-                    for(var i = 0; i < doc.infolist.length;++i){
+                    var istart = new Number(indexstart);
+                    if(istart > doc.infolist.length || istart < 0)
+                    {
+                        console.log('index 太长',istart);
+                        var postData = JSON.stringify(responsevalue);
+                        response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+                        response.write(postData);
+                        response.end();
+                    }
+                    else{
+                        if(istart == 0){
+                            for(var i = doc.infolist.length - 1;i > 0;--i){
+                                if(babyid == "全部")
+                                {
+                                    var item = {
+                                        index:doc.infolist[i].index
+                                        ,vid:doc.infolist[i].img_samll
+                                        ,img:doc.infolist[i].img_samll
+                                        ,info_type:doc.infolist[i].info_type
+                                        ,des:[]
+                                        ,build_time:doc.infolist[i].build_time
+                                        ,txt:''
+                                    }
+                                    if(doc.infolist[i].info_type == "0"){
+                                        if(doc.infolist[i].txt.length > 50){
+                                            item.txt = doc.infolist[i].txt.substring(0,50);
+                                        }else{
+                                            item.txt = doc.infolist[i].txt;
+                                        }
+                                    }
 
-                        if(babyid == "全部")
-                        {
-                            var item = {
-                                index:doc.infolist[i].index
-                                ,vid:doc.infolist[i].img_samll
-                                ,img:doc.infolist[i].img_samll
-                                ,info_type:doc.infolist[i].info_type
-                                ,des:[]
-                                ,build_time:doc.infolist[i].build_time
-                                ,txt:''
-                            }
-                            if(doc.infolist[i].info_type == "0"){
-                                if(doc.infolist[i].txt.length > 50){
-                                    item.txt = doc.infolist[i].txt.substring(0,50);
-                                }else{
-                                    item.txt = doc.infolist[i].txt;
+                                    for(j in doc.infolist[i].commentlist){
+                                        var commentitem = {
+                                            des_time:doc.infolist[i].commentlist[j].des_time
+                                            ,des_item:doc.infolist[i].commentlist[j].des_text
+                                            ,des_index:doc.infolist[i].commentlist[j].des_index
+                                        }
+
+                                        item.des.push(commentitem);
+                                    }
+
+                                    responsevalue.list.push(item);
+                                    if(responsevalue.list.length > 14){
+                                        break;
+                                    }
+                                }
+                                else{
+                                    if(doc.infolist[i].babytype == babyid){
+                                        var item = {
+                                            index:doc.infolist[i].index
+                                            ,vid:doc.infolist[i].img_small
+                                            ,img:doc.infolist[i].img_small
+                                            ,info_type:infolist[i].info_type
+                                            ,des:[]
+                                            ,build_time:doc.infolist[i].build_time
+                                            ,txt:''
+                                        }
+                                        if(doc.infolist[i].info_type == "0"){
+                                            if(doc.infolist[i].txt.length > 50){
+                                                item.txt = doc.infolist[i].txt.substring(0,50);
+                                            }else{
+                                                item.txt = doc.infolist[i].txt;
+                                            }
+                                        }
+
+                                        for(j in doc.infolist[i].commentlist){
+                                            var commentitem = {
+                                                des_time:doc.infolist[i].commentlist[j].des_time
+                                                ,des_item:doc.infolist[i].commentlist[j].des_text
+                                                ,des_index:doc.infolist[i].commentlist[j].des_index
+                                            }
+
+                                            item.des.push(commentitem);
+                                        }
+
+                                        responsevalue.list.push(item);
+                                        if(responsevalue.list.length > 14){
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-
-                            for(j in doc.infolist[i].commentlist){
-                                var commentitem = {
-                                    des_time:doc.infolist[i].commentlist[j].des_time
-                                    ,des_item:doc.infolist[i].commentlist[j].des_text
-                                    ,des_index:doc.infolist[i].commentlist[j].des_index
-                                }
-
-                                item.des.push(commentitem);
-                            }
-
-                            responsevalue.list.push(item);
                         }
                         else{
-                            if(doc.infolist[i].babytype == babyid){
-                                var item = {
-                                    index:doc.infolist[i].index
-                                    ,vid:doc.infolist[i].img_small
-                                    ,img:doc.infolist[i].img_small
-                                    ,info_type:infolist[i].info_type
-                                    ,des:[]
-                                    ,build_time:doc.infolist[i].build_time
-                                    ,txt:''
-                                }
-                                if(doc.infolist[i].info_type == "0"){
-                                    if(doc.infolist[i].txt.length > 50){
-                                        item.txt = doc.infolist[i].txt.substring(0,50);
-                                    }else{
-                                        item.txt = doc.infolist[i].txt;
+                            for(var i = doc.infolist.length - istart;i > 0;--i){
+                                if(babyid == "全部")
+                                {
+                                    var item = {
+                                        index:doc.infolist[i].index
+                                        ,vid:doc.infolist[i].img_samll
+                                        ,img:doc.infolist[i].img_samll
+                                        ,info_type:doc.infolist[i].info_type
+                                        ,des:[]
+                                        ,build_time:doc.infolist[i].build_time
+                                        ,txt:''
                                     }
-                                }
-
-                                for(j in doc.infolist[i].commentlist){
-                                    var commentitem = {
-                                        des_time:doc.infolist[i].commentlist[j].des_time
-                                        ,des_item:doc.infolist[i].commentlist[j].des_text
-                                        ,des_index:doc.infolist[i].commentlist[j].des_index
+                                    if(doc.infolist[i].info_type == "0"){
+                                        if(doc.infolist[i].txt.length > 50){
+                                            item.txt = doc.infolist[i].txt.substring(0,50);
+                                        }else{
+                                            item.txt = doc.infolist[i].txt;
+                                        }
                                     }
 
-                                    item.des.push(commentitem);
-                                }
+                                    for(j in doc.infolist[i].commentlist){
+                                        var commentitem = {
+                                            des_time:doc.infolist[i].commentlist[j].des_time
+                                            ,des_item:doc.infolist[i].commentlist[j].des_text
+                                            ,des_index:doc.infolist[i].commentlist[j].des_index
+                                        }
 
-                                responsevalue.list.push(item);
+                                        item.des.push(commentitem);
+                                    }
+
+                                    responsevalue.list.push(item);
+                                    if(responsevalue.list.length > 14){
+                                        break;
+                                    }
+                                }
+                                else{
+                                    if(doc.infolist[i].babytype == babyid){
+                                        var item = {
+                                            index:doc.infolist[i].index
+                                            ,vid:doc.infolist[i].img_small
+                                            ,img:doc.infolist[i].img_small
+                                            ,info_type:infolist[i].info_type
+                                            ,des:[]
+                                            ,build_time:doc.infolist[i].build_time
+                                            ,txt:''
+                                        }
+                                        if(doc.infolist[i].info_type == "0"){
+                                            if(doc.infolist[i].txt.length > 50){
+                                                item.txt = doc.infolist[i].txt.substring(0,50);
+                                            }else{
+                                                item.txt = doc.infolist[i].txt;
+                                            }
+                                        }
+
+                                        for(j in doc.infolist[i].commentlist){
+                                            var commentitem = {
+                                                des_time:doc.infolist[i].commentlist[j].des_time
+                                                ,des_item:doc.infolist[i].commentlist[j].des_text
+                                                ,des_index:doc.infolist[i].commentlist[j].des_index
+                                            }
+
+                                            item.des.push(commentitem);
+                                        }
+
+                                        responsevalue.list.push(item);
+                                        if(responsevalue.list.length > 14){
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
