@@ -24,7 +24,7 @@ exports.getPhotoBookList = function(response,request){
             infomodel.findOne({uid:uid},'infolist',function(err,doc){
                 if(doc){
                     var istart = new Number(indexstart);
-                    if(istart > doc.infolist.length || istart < 0)
+                    if(istart >= doc.infolist.length || istart < 0)
                     {
                         console.log('index 太长',istart);
                         var postData = JSON.stringify(responsevalue);
@@ -107,7 +107,7 @@ exports.getPhotoBookList = function(response,request){
                             }
                         }
                         else{
-                            for(var i = doc.infolist.length - istart;i > 0;--i){
+                            for(var i = doc.infolist.length - istart - 1;i > 0;--i){
                                 if(babyid == "全部")
                                 {
                                     var item = {
