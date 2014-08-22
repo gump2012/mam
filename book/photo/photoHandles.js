@@ -419,7 +419,17 @@ exports.addInfo = function(response,request){
             var strsmallimage = querystring.parse(requestData).img_small;
             var strbigimage = querystring.parse(requestData).img_big;
             var ispublish = querystring.parse(requestData).is_publish;
-            var responsevalue = {"info":"-1"};
+            var responsevalue = {"info":"-1"
+            ,"more":
+                {"index":0
+                 ,"info_type":"0"
+                 ,"vid":""
+                 ,"img":""
+                 ,"des":[]
+                 ,"build_time":"2016-4"
+                 ,"build_time_day":"13"
+                }
+            };
             if(uid&&type&&infotype&&ispublish){
                 var infomodel = mongoose.model('info');
                 var infoitem = {
@@ -454,9 +464,15 @@ exports.addInfo = function(response,request){
                                        ,des_text:infoitem.txt
                                        ,des_index:0
                                    }
-
+                                   responsevalue.more.des.push(commentitme);
                                    infoitem.commentlist.push(commentitme);
                                }
+
+                               responsevalue.more.index = infoitem.index;
+                               responsevalue.more.info_type = infoitem.info_type;
+                               responsevalue.more.vid = infoitem.img_big;
+                               responsevalue.more.img = infoitem.img_samll;
+                               responsevalue.more.build_time = infoitem.build_time;
                                doc.infolist.push(infoitem);
                                doc.save(function(err){
                                    if( err )
@@ -465,6 +481,8 @@ exports.addInfo = function(response,request){
                                    }
                                    else{
                                        responsevalue.info = "1";
+
+
                                    }
                                    console.log('success');
                                    var postData = JSON.stringify(responsevalue);
@@ -511,8 +529,14 @@ exports.addInfo = function(response,request){
                                    }
 
                                    infoitem.commentlist.push(commentitme);
+                                   responsevalue.more.des.push(commentitme);
                                }
 
+                               responsevalue.more.index = infoitem.index;
+                               responsevalue.more.info_type = infoitem.info_type;
+                               responsevalue.more.vid = infoitem.img_big;
+                               responsevalue.more.img = infoitem.img_samll;
+                               responsevalue.more.build_time = infoitem.build_time;
                                var newinfo = new infomodel(item);
                                newinfo.save(function(err,silence){
                                    if( err )
