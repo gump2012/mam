@@ -30,12 +30,53 @@ exports.usercare = function(response,request){
             var followuid = querystring.parse(requestData).followUid;
 
             if(uid && followuid){
+                var bookuser = mongoose.model('user');
+                bookuser.findOne({uid:uid},function(err,doc){
+                    if(doc){
+                        doc.mecare.push(followuid);
+                        doc.save(function( err, silence ) {
+                            if( err )
+                            {
+                                console.log(err);
+                                publictool.responseValue(response,responsevalue,'');
+                            }
+                            else{
+                                bookuser.findOne({uid:followuid},function(err,doc){
+                                    if(doc){
+                                        responsevalue.more.headImg = doc.headurl;
+                                        responsevalue.more.name = doc.nickname;
+                                        responsevalue.more.age = doc.Birth;
+                                        responsevalue.more.leve = doc.leve;
+                                        responsevalue.more.sex = doc.sex;
+                                        responsevalue.more.long = doc.long;
+                                        responsevalue.more.lat = doc.lat;
 
+                                        doc.careme.push(uid);
+                                        doc.save(function(err,silence){
+                                            if( err )
+                                            {
+                                                console.log(err);
+                                                publictool.responseValue(response,responsevalue,'');
+                                            }
+                                            else{
+                                                responsevalue.info = "1";
+                                                publictool.responseValue(response,responsevalue,'success');
+                                            }
+                                        });
+                                    }else{
+                                        publictool.responseValue(response,responsevalue,'no care user');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        publictool.responseValue(response,responsevalue,'no user');
+                    }
+                });
             }else{
                 publictool.responseValue(response,responsevalue,'no parameter');
             }
-            var bookuser = mongoose.model('user');
-            bookuser.findOne()
         }
         else{
             publictool.responseValue(response,responsevalue,'no data');
