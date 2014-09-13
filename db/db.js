@@ -23,6 +23,14 @@ function start(){
                 unique: true
             }
             ,nickname:String
+            ,headurl:String
+            ,Birth:String
+            ,sex:String
+            ,shop:String
+            ,address:String
+            ,phone:String
+            ,careme:[]
+            ,mecare:[]
         });
 
         mongoose.model('user',userSchema);

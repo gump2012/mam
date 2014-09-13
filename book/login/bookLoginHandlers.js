@@ -52,6 +52,13 @@ exports.bookLogin = function (response,request){
                         if(ps == buser.ps){
                             responsevalue.user_id = buser.user_id;
                             responsevalue.data.nick_name = buser.nickname;
+                            responsevalue.data.head = buser.headurl;
+                            responsevalue.data.age = buser.Birth;
+                            responsevalue.data.sex = buser.sex;
+                            responsevalue.data.shop_name = buser.shop;
+                            responsevalue.data.address = buser.address;
+                            responsevalue.data.phone = buser.phone;
+
                         }else{
                             responsevalue.user_id = '-1';
                         }
@@ -113,6 +120,7 @@ exports.bookRegister = function (response,request){
                             ,ps:password
                             ,user_id:struid
                             ,nickname:nickname
+                            ,head:"http://pic.yupoo.com/zhaohaining2014/DSs2NQVC/y82Iy.jpg"
                         });
 
                         //保存实例

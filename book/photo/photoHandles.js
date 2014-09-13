@@ -442,6 +442,7 @@ exports.addInfo = function(response,request){
                     ,build_time:Date.now().toString()
                     ,txt:txt
                     ,is_pulish:ispublish
+                    ,blessing:0
                     ,commentlist:[]
                 };
 

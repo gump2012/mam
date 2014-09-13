@@ -8,6 +8,7 @@ var db = require("./db/db.js");
 
 var bookLoginHandlers = require("./book/login/bookLoginHandlers");
 var photoHandles = require("./book/photo/photoHandles");
+var userHandles = require("./book/user/userHandles");
 
 var handle = {};
 handle["/"] = requestHandlers.start;
@@ -20,5 +21,6 @@ handle["/info/getinfolist"] = photoHandles.getPhotoBookList;
 handle["/info/getOneInfo"] = photoHandles.getOneInfo;
 handle["/info/deleteInfo"] = photoHandles.deleteInfo;
 handle["/info/modifyInfo"] = photoHandles.modifyInfo;
+handle["/user"] = userHandles.user;
 db.start();
 server.start(router.route,handle);
