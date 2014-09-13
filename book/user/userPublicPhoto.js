@@ -27,7 +27,7 @@ exports.publicPhoto = function (response,request){
                     if(istart >= doc.infolist.length || istart < 0)
                     {
                         console.log('index 太长',istart);
-                        publictool.responseValue(response,responsevalue);
+                        publictool.responseValue(response,responsevalue,'');
                     }
                     else{
                         if(istart == 0){
@@ -72,10 +72,10 @@ exports.publicPhoto = function (response,request){
                         }
                     }
 
-                    publictool.assistantValue(response,responsevalue);
+                    publictool.assistantValue(response,responsevalue,'');
                 }
                 else{
-                    publictool.assistantValue(response,responsevalue);
+                    publictool.assistantValue(response,responsevalue,'');
                 }
             });
         }

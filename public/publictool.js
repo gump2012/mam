@@ -10,7 +10,11 @@ exports.assistantValue = function (request){
     return assistant;
 }
 
-exports.responseValue = function (response,value){
+exports.responseValue = function (response,value,strlog){
+    if(strlog.length > 0){
+        console.log(strlog);
+    }
+
     var postData = JSON.stringify(value);
     response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
     response.write(postData);

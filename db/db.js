@@ -29,6 +29,9 @@ function start(){
             ,shop:String
             ,address:String
             ,phone:String
+            ,leve:String
+            ,long:String
+            ,lat:String
             ,careme:[]
             ,mecare:[]
         });

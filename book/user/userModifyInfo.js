@@ -43,23 +43,20 @@ exports.modifyUserInfo = function (response,request){
                                 console.log('modify success');
                                 responsevalue.info = "1";
                             }
-                            publictool.responseValue(response,responsevalue);;
+                            publictool.responseValue(response,responsevalue,"");;
                         });
                     }
                     else{
-                        console.log('no user');
-                        publictool.responseValue(response,responsevalue);
+                        publictool.responseValue(response,responsevalue,'no user');
                     }
                 });
             }
             else{
-                console.log('parameter incomplete');
-                publictool.responseValue(response,responsevalue);
+                publictool.responseValue(response,responsevalue,'parameter incomplete');
             }
         }
         else{
-            console.log('no info data')
-            publictool.responseValue(response,responsevalue);
+            publictool.responseValue(response,responsevalue,'no info data');
         }
     });
 }
